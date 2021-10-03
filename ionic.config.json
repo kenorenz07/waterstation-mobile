@@ -1,0 +1,7 @@
+{
+  "name": "water-station-mobile-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
