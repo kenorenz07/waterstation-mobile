@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 
+import store from '../store';
+
 import MemoriesPage from "../pages/MemoriesPage.vue";
 import MemoriesDetails from "../pages/MemoriesDetails.vue";
-import Menu from "../pages/Menu.vue";
+import Login from "../pages/Auth/Login.vue";
 
 const routes = [
   {
@@ -11,15 +13,24 @@ const routes = [
   },
   {
     path: '/memories',
-    component : MemoriesPage
+    name : 'memories',
+    component : MemoriesPage,
+    meta : {
+      requiresAuth: true
+    }
   },
   {
     path: '/memory-details/:id',
-    component : MemoriesDetails
+    name : 'memory-details',
+    component : MemoriesDetails,
+    meta : {
+      requiresAuth: true
+    }
   },
   {
-    path: '/menu',
-    component : Menu
+    path: '/login',
+    name : 'login',
+    component : Login
   },
  
 ]
@@ -27,6 +38,28 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach(async (to, from, next) => {
+    localStorage.setItem('from', from.fullPath)
+    let user = null
+
+    try {
+        user = await store.dispatch('updateUser')
+    } catch (error) {
+        user = null
+    }
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    console.log(requiresAuth)
+
+    if (!requiresAuth && user) {
+        next(from)
+    } else if (requiresAuth && !user) {
+        next('/login');
+    } else {
+        next();
+    }
+
 })
 
 export default router

@@ -11,9 +11,9 @@
     <ion-content>
         <slot></slot>
     </ion-content>
-    <ion-footer>
-        <ion-toolbar>
-        <ion-title>Footer</ion-title>
+    <ion-footer >
+        <ion-toolbar >
+            <ion-title>Footer</ion-title>
         </ion-toolbar>
     </ion-footer>
   </ion-page>
