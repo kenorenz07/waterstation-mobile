@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "water-station-mobile-app",
-	"webDir": "dist",
-	"bundledWebRuntime": false
+  "appId": "water.station.app.calbayog",
+  "appName": "WaterStation",
+  "webDir": "public",
+  "bundledWebRuntime": false
 }

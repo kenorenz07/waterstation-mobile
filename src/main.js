@@ -5,6 +5,8 @@ import BaseLayout from './layouts/BaseLayout.vue'
 
 import router from './router';
 import store from './store';
+import axios from './axios';
+
 
 import { IonicVue } from '@ionic/vue';
 
@@ -36,6 +38,7 @@ const app = createApp(App)
   .use(store);
   
 app.component('base-layout',BaseLayout);
+app.config.globalProperties.$axios = axios;
 
 router.isReady().then(() => {
   app.mount('#app');

@@ -50,9 +50,8 @@ const store = createStore({
 
         async updateUser({ commit }) {
           try {
-            
             const response = await axios.get(localStorage.getItem("user_type") == "customer" ? 'user/v1/details' : 
-            localStorage.getItem("user_type") == "delivery_man" ? 'delivery_man/v1/details' : 'admin/v1/details');
+            localStorage.getItem("user_type") == "delivery" ? 'delivery_man/v1/details' : 'admin/v1/details');
             localStorage.setItem("token", response.data.token);
             commit('SET_USER', response.data)
             return response.data
