@@ -98,7 +98,7 @@ export default {
     },
     methods : {
         loginCustomer() {
-            this.$axios.post('user/test/', this.user).then(({data}) => {
+            this.$axios.post('user/login', this.user).then(({data}) => {
                 console.log(data,"LOGIN NA")
             })
 
