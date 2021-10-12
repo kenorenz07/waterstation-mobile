@@ -2,10 +2,13 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 
 import store from '../store';
 
-import MemoriesPage from "../pages/MemoriesPage.vue";
-import MemoriesDetails from "../pages/MemoriesDetails.vue";
-import CreateAccount from "../pages/CreateAccount.vue";
+import Dashboard from "../pages/Dashboard.vue";
+import Cart from "../pages/DashboardTabs/Cart.vue";
+import Home from "../pages/DashboardTabs/Home.vue";
+import Products from "../pages/DashboardTabs/Products.vue";
 
+
+import CreateAccount from "../pages/CreateAccount.vue";
 import LoginFirst from "../pages/Auth/LoginFirst.vue";
 import LoginAsCustomer from "../pages/Auth/LoginAsCustomer.vue";
 import LoginAsDeliveryMan from "../pages/Auth/LoginAsDeliveryMan.vue";
@@ -13,23 +16,36 @@ import LoginAsDeliveryMan from "../pages/Auth/LoginAsDeliveryMan.vue";
 const routes = [
   {
     path: '/',
-    redirect: '/memories'
+    redirect: '/dashboard/products'
   },
   {
-    path: '/memories',
-    name : 'memories',
-    component : MemoriesPage,
+    path: '/dashboard/',
+    name : 'dashboard',
+    component : Dashboard,
     meta : {
       requiresAuth: true,
-    }
-  },
-  {
-    path: '/memory-details/:id',
-    name : 'memory-details',
-    component : MemoriesDetails,
-    meta : {
-      requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: '',
+        redirect: 'products'
+      },
+      {
+        path: 'home',
+        name: 'home',
+        component: Home,
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        component: Cart,
+      },
+      {
+        path: 'products',
+        name: 'products',
+        component: Products,
+      },
+    ]
   },
   {
     path: '/login',
@@ -63,25 +79,24 @@ router.beforeEach(async (to, from, next) => {
     localStorage.setItem('from', from.fullPath)
     let user = null
            
-    if(to.path == "/login") {
-       localStorage.removeItem("user_type")
+    try {
+        user = await store.dispatch('updateUser') 
+    } catch (error) {
+      user = null
     }
+
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    if(requiresAuth){
 
-      try {
-        user = await store.dispatch('updateUser')
-      } catch (error) {
-        user = null
-      }
-    }
-
+    console.log(requiresAuth,'requiresAuth',!user,'no user')
+    
     if (!requiresAuth && user) {
+        console.log('not require auth but there is user')
         next(from)
-    } else 
-    if (requiresAuth && !user) {
+    } else if (requiresAuth && !user) {
+        console.log('require auth there is no user')
         next('/login');
     } else {
+        console.log('next')
         next();
     }
 

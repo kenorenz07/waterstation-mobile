@@ -89,8 +89,8 @@ export default {
     },
     data : () => ({
         user: {
-            email: '',
-            password: '',
+            email: 'keno@renz.com',
+            password: '123123123',
         }
     }),
     mounted () {
@@ -99,10 +99,9 @@ export default {
     methods : {
         loginCustomer() {
             this.$axios.post('user/login', this.user).then(({data}) => {
-                console.log(data,"LOGIN NA")
+                localStorage.setItem("token", data.token);
+                this.$router.push('/dashboard/products');
             })
-
-        
         }
     }
 }
