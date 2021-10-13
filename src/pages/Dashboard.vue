@@ -9,25 +9,27 @@
             </ion-toolbar>
 
         </ion-header>
-        <ion-content>
-            <ion-router-outlet />
+        <ion-content  >
+
+            <ion-tabs @ionTabsWillChange="beforeTabChange" @ionTabsDidChange="afterTabChange">
+                <ion-router-outlet />
+
+                <ion-tab-bar slot="bottom">
+                    <ion-tab-button tab="home" :href="'/dashboard/home'">
+                        <ion-icon :icon="home"></ion-icon>
+                        <ion-label>Home</ion-label>
+                    </ion-tab-button>
+                    <ion-tab-button tab="products" :href="'/dashboard/products'">
+                        <ion-icon :icon="grid"></ion-icon>
+                    </ion-tab-button>
+                    <ion-tab-button tab="cart" :href="'/dashboard/cart'">
+                        <ion-icon :icon="cart"></ion-icon>
+                        <ion-label>Cart</ion-label>
+                    </ion-tab-button>
+                </ion-tab-bar>
+            </ion-tabs>
         </ion-content>
 
-        <ion-tabs @ionTabsWillChange="beforeTabChange" @ionTabsDidChange="afterTabChange">
-            <ion-tab-bar slot="bottom">
-                <ion-tab-button tab="home" :href="'/dashboard/home'">
-                    <ion-icon :icon="home"></ion-icon>
-                    <ion-label>Home</ion-label>
-                </ion-tab-button>
-                <ion-tab-button tab="products" :href="'/dashboard/products'">
-                    <ion-icon :icon="grid"></ion-icon>
-                </ion-tab-button>
-                <ion-tab-button tab="cart" :href="'/dashboard/cart'">
-                    <ion-icon :icon="cart"></ion-icon>
-                    <ion-label>Cart</ion-label>
-                </ion-tab-button>
-            </ion-tab-bar>
-        </ion-tabs>
    </ion-page>
 </template>
 <script>
@@ -41,7 +43,8 @@ import {
     IonIcon,
     IonTabBar,
     IonTabButton,
-    IonLabel, IonContent,
+    IonLabel, 
+    IonContent,
     IonRouterOutlet
 } from '@ionic/vue'
 
@@ -59,7 +62,8 @@ export default {
         IonIcon,
         IonTabBar,
         IonTabButton,
-        IonLabel, IonContent,
+        IonLabel, 
+        IonContent,
         IonRouterOutlet
 
     },

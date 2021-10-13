@@ -1,5 +1,6 @@
 <template>
-    <ion-page>
+    <ion-page >
+        <!-- <ion-content> -->
             <!-- <section id="search-wrapper">
                 <div class="content">
                     <ion-searchbar animated></ion-searchbar>
@@ -22,13 +23,14 @@
                     </ion-card-content>
                 </ion-card>
             </section> -->
-                <ion-list>
-                    <ion-item v-for="product in products" :key="product.id" >
-                        <ion-label>
-                            {{product.name}}
-                        </ion-label>
-                    </ion-item>
-                </ion-list>
+            <ion-list>
+                <ion-item v-for="product in products" :key="product.id" >
+                    <ion-label>
+                        {{product.name}}
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        <!-- </ion-content> -->
     </ion-page>
     
 </template>
@@ -46,7 +48,13 @@
 //     IonPage
 // } from '@ionic/vue'
 // import { addCircleOutline} from 'ionicons/icons';
-import { IonList, IonItem , IonLabel, IonPage} from '@ionic/vue'
+import { 
+    IonList, 
+    IonItem , 
+    IonLabel, 
+    IonPage,
+    // IonContent
+    } from '@ionic/vue'
 
 export default {
     components : {
@@ -60,7 +68,12 @@ export default {
         // IonIcon,
         // IonPage
 
-        IonList, IonItem , IonLabel, IonPage
+        IonList, 
+        IonItem , 
+        IonLabel, 
+        IonPage,
+        // IonContent
+
     },
     data : () => ({
         products : []
@@ -70,7 +83,7 @@ export default {
     },
     methods : {
         initialize(){
-            this.$axios.get('/user/v1/products/all').then(({data}) => {
+            this.$axios.get('/user/v1/product/all').then(({data}) => {
                 this.products = data
             })
         }
@@ -78,11 +91,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 
 ion-card-content {
     display: flex;
 }
-
+.ion-page{
+    overflow-y: scroll;
+}
 </style>
