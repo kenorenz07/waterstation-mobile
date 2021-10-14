@@ -3,9 +3,12 @@
        <ion-header>
             <ion-toolbar>
                 <ion-title>Dashboard</ion-title>
-                <ion-avatar slot="end">
+                 <ion-button @click="logoutCustomer" color="light" slot="end" fill="outline">
+                    <ion-icon  slot="icon-only" :icon="logOutOutline"></ion-icon>
+                </ion-button>
+                <!-- <ion-avatar slot="end" >
                     <img src="https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-1/p100x100/241439838_4465586350227792_3670855029139333701_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=7206a8&_nc_ohc=lqD4hS-c1O4AX_Y2yHi&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent-xsp1-3.xx&oh=bf8f060cb6ededc794279164509bf4cc&oe=61804851">
-                </ion-avatar>
+                </ion-avatar> -->
             </ion-toolbar>
 
         </ion-header>
@@ -39,16 +42,17 @@ import {
     IonTabs,
     IonToolbar,
     IonTitle,
-    IonAvatar,
+    // IonAvatar,
     IonIcon,
     IonTabBar,
     IonTabButton,
     IonLabel, 
     IonContent,
-    IonRouterOutlet
+    IonRouterOutlet,
+    IonButton
 } from '@ionic/vue'
 
-import {  home, grid, cart} from 'ionicons/icons';
+import {  home, grid, cart,logOutOutline} from 'ionicons/icons';
 
 
 export default {
@@ -58,23 +62,33 @@ export default {
         IonTabs,
         IonToolbar,
         IonTitle,
-        IonAvatar,
+        // IonAvatar,
         IonIcon,
         IonTabBar,
         IonTabButton,
         IonLabel, 
         IonContent,
-        IonRouterOutlet
+        IonRouterOutlet,
+        IonButton
 
     },
     data: () => ({
      home,
      grid,
-     cart
+     cart,
+     logOutOutline
     }),
     computed : {
     },
     methods : {
+        logoutCustomer(){
+            this.$axios.post('user/v1/logout').then(({data}) => {
+                if(data){
+                    localStorage.removeItem("token")
+                    this.$router.push('/login')
+                }
+            })
+        },
         beforeTabChange(){
 
         },
