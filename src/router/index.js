@@ -3,9 +3,9 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import store from '../store';
 
 import Dashboard from "../pages/Dashboard.vue";
-import Cart from "../pages/DashboardTabs/Cart.vue";
-import Home from "../pages/DashboardTabs/Home.vue";
-import Products from "../pages/DashboardTabs/Products.vue";
+// import Cart from "../pages/DashboardTabs/Cart.vue";
+// import Home from "../pages/DashboardTabs/Home.vue";
+// import Products from "../pages/DashboardTabs/Products.vue";
 
 
 import CreateAccount from "../pages/CreateAccount.vue";
@@ -33,17 +33,20 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        component: Home,
+        // component: Home,
+        component: () => import('../pages/DashboardTabs/Home.vue')
       },
       {
         path: 'cart',
         name: 'cart',
-        component: Cart,
+        // component: Cart,
+        component: () => import('../pages/DashboardTabs/Cart.vue')
       },
       {
         path: 'products',
         name: 'products',
-        component: Products,
+        // component: Products,
+        component: () => import('../pages/DashboardTabs/Products.vue')
       },
     ]
   },

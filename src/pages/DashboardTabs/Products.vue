@@ -28,6 +28,20 @@
                     <ion-label>
                         {{product.name}}
                     </ion-label>
+                    <ion-row>
+                        <ion-button @click="product.quantity--" fill="outline">
+                            <ion-icon  slot="icon-only" :icon="removeCircleOutline"></ion-icon>
+                        </ion-button>
+                        <ion-label>
+                            {{product.quantity}}
+                        </ion-label>
+                        <ion-button @click="product.quantity++" fill="outline">
+                            <ion-icon  :icon="addCircleOutline"></ion-icon>
+                        </ion-button>
+                    </ion-row>
+                    <ion-button @click="addToCart(product.id,product.quantity)">
+                        <ion-icon  :icon="cartOutline" ></ion-icon>
+                    </ion-button>
                 </ion-item>
             </ion-list>
         <!-- </ion-content> -->
@@ -53,8 +67,14 @@ import {
     IonItem , 
     IonLabel, 
     IonPage,
+    IonIcon,
+    IonButton,
+    IonRow
     // IonContent
     } from '@ionic/vue'
+
+import { addCircleOutline,removeCircleOutline,cartOutline } from 'ionicons/icons';
+
 
 export default {
     components : {
@@ -72,19 +92,37 @@ export default {
         IonItem , 
         IonLabel, 
         IonPage,
+        IonIcon,
+        IonButton,
+        IonRow
         // IonContent
 
     },
     data : () => ({
+        addCircleOutline,
+        removeCircleOutline,
+        cartOutline,
         products : []
     }),
-    mounted () {
+    ionViewWillEnter () {
+        this.initialize()
+    },
+    mounted (){
         this.initialize()
     },
     methods : {
         initialize(){
             this.$axios.get('/user/v1/product/all').then(({data}) => {
                 this.products = data
+
+                this.products.forEach((product) => {
+                    product.quantity = 0
+                })
+            })
+        },
+        addToCart(product_id,quantity){
+            this.$axios.post(`user/v1/cart/add/${product_id}`,{quantity}).then(({data})=> {
+                console.log(data,'cart')
             })
         }
     },
