@@ -19,23 +19,20 @@
             </ion-row>
             <ion-row>
                 <ion-col>
-                    <form>
-                        <ion-item lines="full">
-                            <ion-label position="floating">Email</ion-label>
-                            <ion-input type="text" required></ion-input>
-                        </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">*Username</ion-label>
+                        <ion-input v-model="delivery_man.username" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">*Password</ion-label>
+                        <ion-input v-model="delivery_man.password" type="password"></ion-input>
+                    </ion-item>
 
-                        <ion-item lines="full">
-                            <ion-label position="floating">Password</ion-label>
-                            <ion-input type="password" required></ion-input>
-                        </ion-item>
-
-                        <ion-row>
-                            <ion-col class="ion-text-center">
-                                <ion-button type="submit" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button>
-                            </ion-col>
-                        </ion-row>
-                    </form>
+                    <ion-row>
+                        <ion-col class="ion-text-center">
+                            <ion-button @click="loginDelivery" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button>
+                        </ion-col>
+                    </ion-row>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -81,7 +78,19 @@ export default {
     mounted () {
 
     },
+    data: () => ({
+        delivery_man: {
+            username: 'delivery1',
+            password: 123123
+        }
+    }),
     methods : {
+        loginDelivery() {
+            this.$axios.post('delivery_man/login', this.delivery_man).then(({data}) => {
+                localStorage.setItem("token", data.token);
+                this.$router.push('/delivery');
+            })
+        }
     }
 }
 </script>

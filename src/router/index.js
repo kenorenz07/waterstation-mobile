@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import store from '../store';
 
 import Dashboard from "../pages/Dashboard.vue";
+import DeliveryMan from "../pages/DeliveryMan.vue";
 // import Cart from "../pages/DashboardTabs/Cart.vue";
 // import Home from "../pages/DashboardTabs/Home.vue";
 // import Products from "../pages/DashboardTabs/Products.vue";
@@ -17,6 +18,14 @@ const routes = [
   {
     path: '',
     redirect: '/dashboard/products'
+  },
+  {
+    path : '/delivery',
+    name: 'delivery',
+    component: DeliveryMan,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/dashboard/',
