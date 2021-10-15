@@ -1,7 +1,6 @@
 <template>
     <ion-page>
         <ion-header>
-            
             <ion-toolbar>
                 <ion-buttons slot="start">
                     <ion-back-button default-href="/login" color="light"></ion-back-button>
@@ -12,40 +11,27 @@
             
         <ion-content>
             <ion-grid>
-                <ion-row>
                     <ion-col>
-
+                        <ion-item>
+                            <ion-label position="floating">Email</ion-label>
+                            <ion-input name="customer_email" type="email" v-model="user.email" required></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Password</ion-label>
+                            <ion-input name="customer_pw" type="password" v-model="user.password" required></ion-input>
+                        </ion-item>
                     </ion-col>
-                </ion-row>
-                <ion-row>
                     <ion-col>
-                            <ion-item>
-                                <ion-label position="floating">Email</ion-label>
-                                <ion-input name="customer_email" type="email" v-model="user.email" required></ion-input>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label position="floating">Password</ion-label>
-                                <ion-input name="customer_pw" type="password" v-model="user.password" required></ion-input>
-                            </ion-item>
-                            <ion-row>
-                                <ion-col class="ion-text-center">
-                                    <ion-button @click="loginCustomer" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button>
-                                    <a class="small-text">Forgot Password?</a>
-                                </ion-col>
-                            </ion-row>
-                        <hr>
                         <ion-row>
                             <ion-col class="ion-text-center">
+                                <ion-button @click="loginCustomer" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button>
                                 <div class="">
-
                                     <span class="divider line one-line">Or</span>
                                     <ion-button router-link="/create-account" expand="block" color="danger" class="ion-margin">Create an account here</ion-button>
                                 </div>
                             </ion-col>
                         </ion-row>
                     </ion-col>
-                </ion-row>
-
             </ion-grid>
         </ion-content>
     </ion-page>
@@ -106,3 +92,27 @@ export default {
     }
 }
 </script>
+<style>
+.divider {
+    display: flex;
+}
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+}
+
+.line {
+    align-items: center;
+    margin: 1em -1em;
+    color: #000;
+}
+.line::after, .line::before{
+    height: 1px;
+    margin: 0 1em;
+
+}
+
+.one-line::before, .one-line::after {
+        background: #000;
+}
+</style>
