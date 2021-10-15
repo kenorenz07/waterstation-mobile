@@ -1,5 +1,5 @@
 <template>
-    <ion-page >
+    <ion-page>
         <!-- <ion-content> -->
             <!-- <section id="search-wrapper">
                 <div class="content">
@@ -24,29 +24,49 @@
                 </ion-card>
             </section> -->
             <ion-list>
-                <ion-item v-for="product in products" :key="product.id" >
-                    <ion-label>
-                        {{product.name}}
-                    </ion-label>
-                    <ion-row>
-                        <ion-button @click="product.quantity--" fill="outline">
-                            <ion-icon  slot="icon-only" :icon="removeCircleOutline"></ion-icon>
-                        </ion-button>
-                        <ion-label>
-                            {{product.quantity}}
-                        </ion-label>
-                        <ion-button @click="product.quantity++" fill="outline">
-                            <ion-icon  :icon="addCircleOutline"></ion-icon>
-                        </ion-button>
-                    </ion-row>
-                    <ion-button @click="addToCart(product.id,product.quantity)">
-                        <ion-icon  :icon="cartOutline" ></ion-icon>
-                    </ion-button>
-                </ion-item>
+                    <ion-card v-for="product in products" :key="product.id">
+                        <ion-row class="loii-align-center">
+                            <figure>
+                                <ion-row class="loii-align-center">
+                                    <ion-col>
+                                        <ion-img class="loii-img" :src="'http://192.168.254.118:8000/storage/' + product.image"></ion-img>
+                                    </ion-col>
+                                    <ion-col>
+                                        <figcaption>
+                                            <h1 class="mb-3 ml-5">{{product.name}}</h1>
+                                            <h1 class="mb-5 ml-5">{{product.name}}</h1>
+                                            <span class="mb-10 ml-5">₱ {{product.price}}</span>
+                                        </figcaption>
+                                    </ion-col>
+                                </ion-row>
+                            </figure>
+                            <!-- <ion-col>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-input type="text" disabled>
+                                            {{product.quantity}}
+                                        </ion-input>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-button @click="product.quantity--" fill="solid">
+                                            <ion-icon  slot="icon-only" :icon="removeCircleOutline"></ion-icon>
+                                        </ion-button>
+                                        <ion-button @click="product.quantity++" fill="solid">
+                                            <ion-icon  :icon="addCircleOutline"></ion-icon>
+                                        </ion-button>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
+                                <ion-button @click="addToCart(product.id,product.quantity)">
+                                    <ion-icon  :icon="cartOutline" slot="end" ></ion-icon>
+                                </ion-button> -->
+                        </ion-row>
+
+                    </ion-card>
+
             </ion-list>
         <!-- </ion-content> -->
     </ion-page>
-    
 </template>
 
 <script>
@@ -64,11 +84,13 @@
 // import { addCircleOutline} from 'ionicons/icons';
 import { 
     IonList, 
-    IonItem , 
-    IonLabel, 
+    // IonItem,
+    IonCard,
+    // IonCardContent,
+    // IonLabel, 
     IonPage,
-    IonIcon,
-    IonButton,
+    // IonIcon,
+    // IonButton,
     IonRow
     // IonContent
     } from '@ionic/vue'
@@ -89,11 +111,13 @@ export default {
         // IonPage
 
         IonList, 
-        IonItem , 
-        IonLabel, 
+        // IonItem,
+        IonCard,
+        // IonCardContent, 
+        // IonLabel, 
         IonPage,
-        IonIcon,
-        IonButton,
+        // IonIcon,
+        // IonButton,
         IonRow
         // IonContent
 
@@ -130,11 +154,20 @@ export default {
 </script>
 
 <style scoped>
-
-
-ion-card-content {
-    display: flex;
+.loii-align-center {
+    align-items: center;
 }
+.loii-margin {
+    margin: 24px 0;
+}
+.loii-img{
+    height: auto;
+    width: 75%;
+    margin: auto;
+}
+/* ion-card-content {
+    display: flex;
+} */
 .ion-page{
     overflow-y: scroll;
 }
