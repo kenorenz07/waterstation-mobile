@@ -15,7 +15,7 @@ import LoginAsDeliveryMan from "../pages/Auth/LoginAsDeliveryMan.vue";
 
 const routes = [
   {
-    path: '/',
+    path: '',
     redirect: '/dashboard/products'
   },
   {
