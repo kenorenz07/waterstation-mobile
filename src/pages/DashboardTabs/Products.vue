@@ -24,7 +24,25 @@
                 </ion-card>
             </section> -->
             <ion-list>
-                    <ion-card v-for="product in products" :key="product.id">
+                <ion-card @click="openModal">
+                    <ion-row class="loii-align-center">
+                        <figure>
+                            <ion-row class="loii-align-center">
+                                <ion-col>
+                                    <ion-img class="loii-img" src="https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244"></ion-img>
+                                </ion-col>
+                                <ion-col>
+                                    <figcaption>
+                                        <h1 class="mb-3 ml-5">product Name</h1>
+                                        <h1 class="mb-5 ml-5">Product Description</h1>
+                                        <span class="mb-10 ml-5">₱ 19.99</span>
+                                    </figcaption>
+                                </ion-col>
+                            </ion-row>
+                        </figure>
+                    </ion-row>
+                </ion-card>
+                    <!-- <ion-card v-for="product in products" :key="product.id">
                         <ion-row class="loii-align-center">
                             <figure>
                                 <ion-row class="loii-align-center">
@@ -40,30 +58,30 @@
                                     </ion-col>
                                 </ion-row>
                             </figure>
-                            <!-- <ion-col>
-                                <ion-row>
-                                    <ion-col>
-                                        <ion-input type="text" disabled>
-                                            {{product.quantity}}
-                                        </ion-input>
-                                    </ion-col>
-                                    <ion-col>
-                                        <ion-button @click="product.quantity--" fill="solid">
-                                            <ion-icon  slot="icon-only" :icon="removeCircleOutline"></ion-icon>
-                                        </ion-button>
-                                        <ion-button @click="product.quantity++" fill="solid">
-                                            <ion-icon  :icon="addCircleOutline"></ion-icon>
-                                        </ion-button>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-col>
-                                <ion-button @click="addToCart(product.id,product.quantity)">
-                                    <ion-icon  :icon="cartOutline" slot="end" ></ion-icon>
-                                </ion-button> -->
+                            
                         </ion-row>
 
-                    </ion-card>
-
+                    </ion-card> -->
+                    <!-- <ion-col>
+                        <ion-row>
+                            <ion-col>
+                                <ion-input type="text" disabled>
+                                    {{product.quantity}}
+                                </ion-input>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button @click="product.quantity--" fill="solid">
+                                    <ion-icon  slot="icon-only" :icon="removeCircleOutline"></ion-icon>
+                                </ion-button>
+                                <ion-button @click="product.quantity++" fill="solid">
+                                    <ion-icon  :icon="addCircleOutline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-col>
+                        <ion-button @click="addToCart(product.id,product.quantity)">
+                            <ion-icon  :icon="cartOutline" slot="end" ></ion-icon>
+                        </ion-button> -->
             </ion-list>
         <!-- </ion-content> -->
     </ion-page>
@@ -91,11 +109,13 @@ import {
     IonPage,
     // IonIcon,
     // IonButton,
-    IonRow
+    IonRow,
+    modalController
     // IonContent
     } from '@ionic/vue'
-
 import { addCircleOutline,removeCircleOutline,cartOutline } from 'ionicons/icons';
+import Modal from '/src/layouts/BaseModal.vue';
+
 
 
 export default {
@@ -118,8 +138,9 @@ export default {
         IonPage,
         // IonIcon,
         // IonButton,
-        IonRow
+        IonRow,
         // IonContent
+
 
     },
     data : () => ({
@@ -148,7 +169,17 @@ export default {
             this.$axios.post(`user/v1/cart/add/${product_id}`,{quantity}).then(({data})=> {
                 console.log(data,'cart')
             })
-        }
+        },
+         async openModal() {
+      const modal = await modalController
+        .create({
+          component: Modal,
+          componentProps: {
+            title: 'Title'
+          },
+        })
+      return modal.present();
+    },
     },
 }
 </script>

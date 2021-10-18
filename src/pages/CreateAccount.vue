@@ -3,7 +3,7 @@
         <ion-header>
             <ion-toolbar>
                 <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/login-customer"></ion-back-button>
+                    <ion-back-button defaultHref="/login-customer" color="light"></ion-back-button>
                 </ion-buttons>
                 <ion-title>Create an account</ion-title>
             </ion-toolbar>
@@ -13,25 +13,32 @@
             <ion-grid>
                 <ion-row>
                     <ion-col>
+                        <ion-thumbnail>
+                            <ion-img></ion-img>
+                        </ion-thumbnail>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
                         <ion-item>
-                            <ion-label position="floating">*Name</ion-label>
-                            <ion-input v-model="customer.name" type="text"></ion-input>
+                            <ion-label class="required" position="floating">Name</ion-label>
+                            <ion-input v-model="customer.name" type="text" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating">*Email</ion-label>
-                            <ion-input v-model="customer.email" type="email"></ion-input>
+                            <ion-label class="required" position="floating">Email</ion-label>
+                            <ion-input v-model="customer.email" type="email" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating">*Phone Number</ion-label>
-                            <ion-input v-model="customer.phone_number" type="number"></ion-input>
+                            <ion-label position="floating">Phone Number</ion-label>
+                            <ion-input v-model="customer.phone_number" type="number" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating">*Password</ion-label>
-                            <ion-input v-model="customer.password" type="password"></ion-input>
+                            <ion-label class="required" position="floating">Password</ion-label>
+                            <ion-input v-model="customer.password" type="password" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating">*Confirm Password</ion-label>
-                            <ion-input v-model="customer.confirm_password" type="password"></ion-input>
+                            <ion-label class="required" position="floating">Confirm Password</ion-label>
+                            <ion-input v-model="customer.confirm_password" type="password" required></ion-input>
                         </ion-item>
                         <ion-row>
                             <ion-col>
@@ -47,6 +54,7 @@
 
 
 <script>
+import {camera,trash,close} from 'ionicons/icons';
 import { 
     IonItem ,
     IonButton,
@@ -120,6 +128,18 @@ export default {
             }
         },
      
+    },
+    setup(){
+        return {
+            camera, trash, close
+        }
     }
 }
 </script>
+
+<style scoped>
+.required::before{
+    content: "* ";
+    color: red;
+}
+</style>

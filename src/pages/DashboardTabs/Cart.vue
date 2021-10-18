@@ -1,9 +1,9 @@
 <template>
     <ion-page>
+        <div class="cart-wrapper">
         <ion-list>
-        <ion-button expand="full" >Order Selected({{ordersNumber}})</ion-button>
-
-            <ion-card v-for="cart in carts" :key="cart.id" >
+        <!-- <ion-button expand="full" >Order Selected({{ordersNumber}})</ion-button> -->
+            <!-- <ion-card v-for="cart in carts" :key="cart.id" >
                 <ion-card-header>
                     <ion-card-subtitle>Quantity : {{cart.quantity}}</ion-card-subtitle>
                     <ion-card-title> {{cart.product.name}}</ion-card-title>
@@ -36,8 +36,38 @@
                         </ion-col>
                     </ion-row>
                 </ion-card-content>
-            </ion-card>
+            </ion-card> -->
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="4">
+                            <ion-img src="https://e7.pngegg.com/pngimages/725/706/png-clipart-drinking-water-mineral-water-bottles-mineral-water.png"></ion-img>
+                        </ion-col>
+                        <ion-col size="8">
+                            <h1>Palm Spring Pure Water</h1>
+                            <ion-row>
+                                <ion-col size="6" style="padding-left:0;">
+                                    <p class="product-desc">Bottle 18.9L</p>
+                                    <p class="product-price">P3.00</p>
+                                </ion-col>
+                                <ion-col size="6" style="place-self: center;">
+                                    <div class="product-add">
+                                        <ion-buttons>
+                                            <ion-button>-</ion-button>
+                                        </ion-buttons>
+                                        <ion-label>2</ion-label>
+                                        <ion-buttons>
+                                            <ion-button>+</ion-button>
+                                        </ion-buttons>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
         </ion-list>
+        </div>
         
     </ion-page>
 </template>
@@ -47,11 +77,11 @@ import {
     IonPage,
     IonList,
     // IonItem,
-    IonCheckbox,
-    IonLabel, 
-    IonButton,
-    IonIcon,
-    IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonCardSubtitle,IonRow,IonCol
+    // IonCheckbox,
+    // IonLabel, 
+    // IonButton,
+    // IonIcon,
+    // IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonCardSubtitle,IonRow,IonCol
 } from '@ionic/vue'
 
 import { trashOutline,addCircleOutline,removeCircleOutline,cartOutline,arrowForwardCircle } from 'ionicons/icons';
@@ -61,11 +91,11 @@ export default {
         IonPage,
         IonList,
         // IonItem,
-        IonCheckbox,
-        IonLabel, 
-        IonButton,
-        IonIcon,
-        IonCard,IonCardHeader,IonCardTitle,IonCardSubtitle,IonCardContent,IonRow,IonCol
+        // IonCheckbox,
+        // IonLabel, 
+        // IonButton,
+        // IonIcon,
+        // IonCard,IonCardHeader,IonCardTitle,IonCardSubtitle,IonCardContent,IonRow,IonCol
     },
     data : () => ({
 
@@ -133,4 +163,24 @@ export default {
     overflow-y: scroll;
 }
 
+.product-add {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.product-add ion-button {
+    font-size: 25px;
+    border: 1px solid;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+}
+.product-desc{
+    font-size: 16px;
+    color: #a19c9c;
+}
+.product-price{
+        font-weight: 700;
+    color: #269926;
+}
 </style>

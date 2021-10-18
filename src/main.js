@@ -10,6 +10,8 @@ import axios from './axios';
 
 import { IonicVue } from '@ionic/vue';
 
+// import { defineCustomElement } from '@ionic/pwa-elements/loader';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -33,13 +35,14 @@ import './theme/variables.css';
 import './theme/core.css';
 
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router)
-  .use(store);
-  
-app.component('base-layout',BaseLayout);
+    .use(IonicVue)
+    .use(router)
+    .use(store);
+
+app.component('base-layout', BaseLayout);
 app.config.globalProperties.$axios = axios;
 
 router.isReady().then(() => {
-  app.mount('#app');
+    app.mount('#app');
+    // defineCustomElement(window);
 });
