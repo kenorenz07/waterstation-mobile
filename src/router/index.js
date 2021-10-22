@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 
-// import store from '../store';
+import store from '../store';
 
 import Dashboard from "../pages/Dashboard.vue";
 import DeliveryMan from "../pages/DeliveryMan.vue";
@@ -88,31 +88,31 @@ const router = createRouter({
     routes
 })
 
-// router.beforeEach(async (to, from, next) => {
-//     localStorage.setItem('from', from.fullPath)
-//     let user = null
+router.beforeEach(async(to, from, next) => {
+    localStorage.setItem('from', from.fullPath)
+    let user = null
 
-//     try {
-//         user = await store.dispatch('updateUser') 
-//     } catch (error) {
-//       user = null
-//     }
+    try {
+        user = await store.dispatch('updateUser')
+    } catch (error) {
+        user = null
+    }
 
-//     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-//     console.log(requiresAuth,'requiresAuth',!user,'no user')
+    console.log(requiresAuth, 'requiresAuth', !user, 'no user')
 
-//     if (!requiresAuth && user) {
-//         console.log('not require auth but there is user')
-//         next(localStorage.getItem("user_type") == "delivery" ? "/delivery" : from)
-//     } else if (requiresAuth && !user) {
-//         console.log('require auth there is no user')
-//         next('/login');
-//     } else {
-//         console.log('next')
-//         next();
-//     }
+    if (!requiresAuth && user) {
+        console.log('not require auth but there is user')
+        next(localStorage.getItem("user_type") == "delivery" ? "/delivery" : from)
+    } else if (requiresAuth && !user) {
+        console.log('require auth there is no user')
+        next('/login');
+    } else {
+        console.log('next')
+        next();
+    }
 
-// })
+})
 
 export default router

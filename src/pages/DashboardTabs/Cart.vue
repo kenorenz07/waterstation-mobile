@@ -37,20 +37,33 @@
                     </ion-row>
                 </ion-card-content>
             </ion-card> -->
-            <ion-item>
+            <ion-item v-for="cart in carts" :key="cart.id">
                 <ion-grid>
                     <ion-row>
+                        <ion-col size="1">
+                            <ion-checkbox name="checked_product" mode="ios"></ion-checkbox>
+                        </ion-col>
                         <ion-col size="4">
                             <ion-img src="https://e7.pngegg.com/pngimages/725/706/png-clipart-drinking-water-mineral-water-bottles-mineral-water.png"></ion-img>
                         </ion-col>
-                        <ion-col size="8">
-                            <h1>Palm Spring Pure Water</h1>
+                        <ion-col size="7">
+                            <h1>{{cart.product.name}}</h1>
                             <ion-row>
-                                <ion-col size="6" style="padding-left:0;">
-                                    <p class="product-desc">Bottle 18.9L</p>
+                                <!-- <ion-col size="6" style="padding-left:0;"> -->
+                                <ion-col style="padding-left:0;">
+                                    <p class="product-desc">cart.product.description</p>
                                     <p class="product-price">P3.00</p>
+                                    <div class="product-add">
+                                        <ion-buttons>
+                                            <ion-button @click="updateProductQuantity(cart,-1)">-</ion-button>
+                                        </ion-buttons>
+                                        <ion-label>2</ion-label>
+                                        <ion-buttons>
+                                            <ion-button @click="updateProductQuantity(cart,1)">+</ion-button>
+                                        </ion-buttons>
+                                    </div>
                                 </ion-col>
-                                <ion-col size="6" style="place-self: center;">
+                                <!-- <ion-col size="6" style="place-self: center;">
                                     <div class="product-add">
                                         <ion-buttons>
                                             <ion-button>-</ion-button>
@@ -60,13 +73,16 @@
                                             <ion-button>+</ion-button>
                                         </ion-buttons>
                                     </div>
-                                </ion-col>
+                                </ion-col> -->
                             </ion-row>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </ion-item>
         </ion-list>
+        <div class="checkout-btn">
+            <ion-button @click="openModal" expand="block" fill="solid" color="danger">Checkout ($total)</ion-button>
+        </div>
         </div>
         
     </ion-page>
@@ -76,6 +92,8 @@
 import { 
     IonPage,
     IonList,
+    IonCheckbox,
+    modalController
     // IonItem,
     // IonCheckbox,
     // IonLabel, 
@@ -85,11 +103,13 @@ import {
 } from '@ionic/vue'
 
 import { trashOutline,addCircleOutline,removeCircleOutline,cartOutline,arrowForwardCircle } from 'ionicons/icons';
+import Modal from '/src/layouts/CheckoutModal.vue';
 
 export default {
     components: {
         IonPage,
         IonList,
+        IonCheckbox,
         // IonItem,
         // IonCheckbox,
         // IonLabel, 
@@ -152,7 +172,17 @@ export default {
             }
 
             console.log(this.temp_orders,'order yarn')
-        }
+        },
+        async openModal() {
+            const modal = await modalController
+                .create({
+                component: Modal,
+                componentProps: {
+                    title: 'Title'
+                },
+                })
+            return modal.present();
+        },
     }
 }
 </script>
@@ -166,7 +196,9 @@ export default {
 .product-add {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 15px;
+    margin-top: 10px;
+    /* justify-content: space-between; */
 }
 .product-add ion-button {
     font-size: 25px;
@@ -182,5 +214,20 @@ export default {
 .product-price{
         font-weight: 700;
     color: #269926;
+}
+.checkout-btn {
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  bottom: 35px;
+  transform: translate(-50%, 0);
+}
+ion-checkbox {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    --border-radius: 5px;
+    --border-color: #433f3f;
 }
 </style>

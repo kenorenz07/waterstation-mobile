@@ -1,11 +1,11 @@
 {
     "/api": {
-      "target": "http://www.example.com/data",
-      "secure": false,
-      "changeOrigin": true,
-      "logLevel": "debug",
-      "pathRewrite": {
-        "^/api": "http://127.0.0.1:8000"
-      }
+        "target": "http://www.example.com/data",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
+            "^/api": "http://3.144.168.4/"
+        }
     }
-  }
+}

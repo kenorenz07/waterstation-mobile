@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "../router";
-const baseURL = "http://192.168.254.118:8000/";
+const baseURL = "http://3.144.168.4/";
 
 const httpClient = axios.create({
     baseURL
