@@ -24,8 +24,8 @@
                     <ion-col>
                         <ion-row>
                             <ion-col class="ion-text-center">
-                                <ion-button default-href="/dashboard/home" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button>
-                                <!-- <ion-button @click="loginCustomer" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button> -->
+                                <!-- <ion-button default-href="/dashboard/home" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button> -->
+                                <ion-button @click="loginCustomer" color="danger" expand="block" class="ion-margin-horizontal ion-margin-vertical">Sign In</ion-button>
                                 <div class="">
                                     <span class="divider line one-line">Or</span>
                                     <ion-button router-link="/create-account" expand="block" color="danger" class="ion-margin">Create an account</ion-button>

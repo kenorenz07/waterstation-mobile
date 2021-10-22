@@ -1,88 +1,41 @@
 <template>
     <ion-page>
         <div class="cart-wrapper">
-        <ion-list>
-        <!-- <ion-button expand="full" >Order Selected({{ordersNumber}})</ion-button> -->
-            <!-- <ion-card v-for="cart in carts" :key="cart.id" >
-                <ion-card-header>
-                    <ion-card-subtitle>Quantity : {{cart.quantity}}</ion-card-subtitle>
-                    <ion-card-title> {{cart.product.name}}</ion-card-title>
-                    <ion-button @click="updateProductQuantity(cart,-1)" fill="outline">
-                        <ion-icon  slot="icon-only" :icon="removeCircleOutline"></ion-icon>
-                    </ion-button>
-                    <ion-label>
-                        {{cart.quantity}}
-                    </ion-label>
-                    <ion-button @click="updateProductQuantity(cart,1)" fill="outline">
-                        <ion-icon  :icon="addCircleOutline"></ion-icon>
-                    </ion-button>
-                </ion-card-header>
-
-                <ion-card-content>
-                    <ion-row>
-                        <ion-col size="6">
-                            <ion-label>
-                            Total : {{cart.total_price}}
-                            </ion-label>
-                        </ion-col>
-                        <ion-col >
-                            <ion-checkbox v-model="cart.to_order" @ionChange="addToTempOrder(cart)"></ion-checkbox>
-                            <ion-label>add to orders</ion-label>
-                        </ion-col>
-                        <ion-col >
-                            <ion-button color="danger" @click="removeFromCart(cart.id)">
-                                <ion-icon  :icon="trashOutline" ></ion-icon>
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-card-content>
-            </ion-card> -->
-            <ion-item v-for="cart in carts" :key="cart.id">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col size="1">
-                            <ion-checkbox name="checked_product" mode="ios"></ion-checkbox>
-                        </ion-col>
-                        <ion-col size="4">
-                            <ion-img src="https://e7.pngegg.com/pngimages/725/706/png-clipart-drinking-water-mineral-water-bottles-mineral-water.png"></ion-img>
-                        </ion-col>
-                        <ion-col size="7">
-                            <h1>{{cart.product.name}}</h1>
-                            <ion-row>
-                                <!-- <ion-col size="6" style="padding-left:0;"> -->
-                                <ion-col style="padding-left:0;">
-                                    <p class="product-desc">cart.product.description</p>
-                                    <p class="product-price">P3.00</p>
-                                    <div class="product-add">
-                                        <ion-buttons>
-                                            <ion-button @click="updateProductQuantity(cart,-1)">-</ion-button>
-                                        </ion-buttons>
-                                        <ion-label>2</ion-label>
-                                        <ion-buttons>
-                                            <ion-button @click="updateProductQuantity(cart,1)">+</ion-button>
-                                        </ion-buttons>
-                                    </div>
-                                </ion-col>
-                                <!-- <ion-col size="6" style="place-self: center;">
-                                    <div class="product-add">
-                                        <ion-buttons>
-                                            <ion-button>-</ion-button>
-                                        </ion-buttons>
-                                        <ion-label>2</ion-label>
-                                        <ion-buttons>
-                                            <ion-button>+</ion-button>
-                                        </ion-buttons>
-                                    </div>
-                                </ion-col> -->
-                            </ion-row>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
-        </ion-list>
-        <div class="checkout-btn">
-            <ion-button @click="openModal" expand="block" fill="solid" color="danger">Checkout ($total)</ion-button>
-        </div>
+            <ion-list>
+                <ion-item v-for="cart in carts" :key="cart.id">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="1">
+                                <ion-checkbox name="checked_product" v-model="cart.to_order" mode="ios" @ionChange="addToTempOrder(cart)"></ion-checkbox>
+                            </ion-col>
+                            <ion-col size="4">
+                                <ion-img :src="cart.product.image ? 'http://127.0.0.1:8000/storage/' + cart.product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'"></ion-img>
+                            </ion-col>
+                            <ion-col size="7">
+                                <h1>{{cart.product.name}}</h1>
+                                <ion-row>
+                                    <ion-col style="padding-left:0;">
+                                        <p class="product-desc">{{cart.product.description}}</p>
+                                        <p class="product-price">{{cart.total_price}}</p>
+                                        <div class="product-add">
+                                            <ion-buttons>
+                                                <ion-button :disabled="cart.quantity == 1" @click="updateProductQuantity(cart,-1)">-</ion-button>
+                                            </ion-buttons>
+                                            <ion-label>{{cart.quantity}}</ion-label>
+                                            <ion-buttons>
+                                                <ion-button @click="updateProductQuantity(cart,1)">+</ion-button>
+                                            </ion-buttons>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+            <div class="checkout-btn">
+                <ion-button @click="openModal" expand="block" :disabled="temp_orders.length < 1" fill="solid" color="danger">Checkout ({{temp_orders.length}})</ion-button>
+            </div>
         </div>
         
     </ion-page>
@@ -93,13 +46,15 @@ import {
     IonPage,
     IonList,
     IonCheckbox,
+    IonCol,
+    IonImg,
+    IonButton,
+    IonButtons,
+    IonLabel,
+    IonRow,
+    IonGrid,
+    IonItem,
     modalController
-    // IonItem,
-    // IonCheckbox,
-    // IonLabel, 
-    // IonButton,
-    // IonIcon,
-    // IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonCardSubtitle,IonRow,IonCol
 } from '@ionic/vue'
 
 import { trashOutline,addCircleOutline,removeCircleOutline,cartOutline,arrowForwardCircle } from 'ionicons/icons';
@@ -110,12 +65,14 @@ export default {
         IonPage,
         IonList,
         IonCheckbox,
-        // IonItem,
-        // IonCheckbox,
-        // IonLabel, 
-        // IonButton,
-        // IonIcon,
-        // IonCard,IonCardHeader,IonCardTitle,IonCardSubtitle,IonCardContent,IonRow,IonCol
+        IonCol,
+        IonImg,
+        IonButton,
+        IonButtons,
+        IonLabel,
+        IonRow,
+        IonGrid,
+        IonItem,
     },
     data : () => ({
 
@@ -158,6 +115,7 @@ export default {
             })
         },
         addToTempOrder(cart){
+            console.log(cart)
             if(cart.to_order){
                 this.temp_orders.push({
                     "product_id" : cart.product_id,
@@ -176,10 +134,10 @@ export default {
         async openModal() {
             const modal = await modalController
                 .create({
-                component: Modal,
-                componentProps: {
-                    title: 'Title'
-                },
+                    component: Modal,
+                    componentProps: {
+                        items: this.temp_orders
+                    },
                 })
             return modal.present();
         },
@@ -219,7 +177,7 @@ export default {
   position: absolute;
   width: 90%;
   left: 50%;
-  bottom: 35px;
+  bottom: 0px;
   transform: translate(-50%, 0);
 }
 ion-checkbox {
