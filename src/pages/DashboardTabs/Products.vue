@@ -12,6 +12,7 @@
                                     <figcaption>
                                         <h1 class="mb-3 ml-5">{{product.name}}</h1>
                                         <h1 class="mb-5 ml-5">{{product.description}}</h1>
+                                        <h1 class="mb-5 ml-5">{{product.is_refill ? 'For refill' : 'Container is for sale'}}</h1>
                                         <span class="mb-10 ml-5">₱ {{product.price}}</span>
                                     </figcaption>
                                 </ion-col>

@@ -1,43 +1,55 @@
 <template>
     <ion-page>
-        <div class="cart-wrapper">
-            <ion-list>
-                <ion-item v-for="cart in carts" :key="cart.id">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col size="1">
-                                <ion-checkbox name="checked_product" v-model="cart.to_order" mode="ios" @ionChange="addToTempOrder(cart)"></ion-checkbox>
-                            </ion-col>
-                            <ion-col size="4">
-                                <ion-img :src="cart.product.image ? 'http://127.0.0.1:8000/storage/' + cart.product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'"></ion-img>
-                            </ion-col>
-                            <ion-col size="7">
-                                <h1>{{cart.product.name}}</h1>
-                                <ion-row>
-                                    <ion-col style="padding-left:0;">
-                                        <p class="product-desc">{{cart.product.description}}</p>
-                                        <p class="product-price">{{cart.total_price}}</p>
-                                        <div class="product-add">
-                                            <ion-buttons>
-                                                <ion-button :disabled="cart.quantity == 1" @click="updateProductQuantity(cart,-1)">-</ion-button>
-                                            </ion-buttons>
-                                            <ion-label>{{cart.quantity}}</ion-label>
-                                            <ion-buttons>
-                                                <ion-button @click="updateProductQuantity(cart,1)">+</ion-button>
-                                            </ion-buttons>
-                                        </div>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-item>
-            </ion-list>
-            <div class="checkout-btn">
-                <ion-button @click="openModal" expand="block" :disabled="temp_orders.length < 1" fill="solid" color="danger">Checkout ({{temp_orders.length}})</ion-button>
+        <ion-page>
+            <div class="cart-wrapper">
+                <ion-list>
+                    <ion-item v-for="cart in carts" :key="cart.id">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="1">
+                                    <ion-checkbox name="checked_product" v-model="cart.to_order" mode="ios" @ionChange="addToTempOrder(cart)"></ion-checkbox>
+                                </ion-col>
+                                <ion-col size="4">
+                                    <ion-img :src="cart.product.image ? 'http://127.0.0.1:8000/storage/' + cart.product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'"></ion-img>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <h1>{{cart.product.name}}</h1>
+                                    <ion-row>
+                                        <ion-col style="padding-left:0;">
+                                            <p class="product-desc">{{cart.product.description}}</p>
+                                            <p class="product-price">₱ {{cart.total_price}}</p>
+                                            <p class="product-price"> {{cart.product.is_refill ? 'For refill' : 'Container is for sale'}}</p>
+                                           
+                                            <div class="product-add">
+                                                <ion-buttons>
+                                                    <ion-button :disabled="cart.quantity == 1" @click="updateProductQuantity(cart,-1)">-</ion-button>
+                                                </ion-buttons>
+                                                <ion-label>{{cart.quantity}}</ion-label>
+                                                <ion-buttons>
+                                                    <ion-button @click="updateProductQuantity(cart,1)">+</ion-button>
+                                                </ion-buttons>
+                                            </div>
+                                        </ion-col>
+                                
+                                    </ion-row>
+                                </ion-col>
+                                <ion-col size="1">
+                                    <ion-buttons >
+                                        <ion-button @click="removeFromCart(cart.id)" color="danger" class="my-auto" >
+                                            <ion-icon  :icon="trashOutline" slot="icon-only" ></ion-icon>
+                                        </ion-button>   
+                                    </ion-buttons>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </ion-list>
+            
             </div>
+        </ion-page>
+        <div class="checkout-btn">
+            <ion-button @click="openModal" expand="block" :disabled="temp_orders.length < 1" fill="solid" color="danger">Checkout ({{temp_orders.length}})</ion-button>
         </div>
-        
     </ion-page>
 </template>
 
@@ -54,10 +66,11 @@ import {
     IonRow,
     IonGrid,
     IonItem,
+    IonIcon,
     modalController
 } from '@ionic/vue'
 
-import { trashOutline,addCircleOutline,removeCircleOutline,cartOutline,arrowForwardCircle } from 'ionicons/icons';
+import { trashOutline } from 'ionicons/icons';
 import Modal from '/src/layouts/CheckoutModal.vue';
 
 export default {
@@ -73,10 +86,11 @@ export default {
         IonRow,
         IonGrid,
         IonItem,
+        IonIcon,
     },
     data : () => ({
 
-        trashOutline,addCircleOutline,removeCircleOutline,cartOutline,arrowForwardCircle,
+        trashOutline,
         carts : [],
         temp_orders: [],
     }),
@@ -118,7 +132,8 @@ export default {
             console.log(cart)
             if(cart.to_order){
                 this.temp_orders.push({
-                    "product_id" : cart.product_id,
+                    "id" : cart.id,
+                    "product" : cart.product,
                     "quantity" : cart.quantity,
                     "total_price" : cart.total_price
                 })
@@ -139,6 +154,11 @@ export default {
                         items: this.temp_orders
                     },
                 })
+            modal.onDidDismiss()
+            .then(() => {
+                this.initialize()
+            });
+
             return modal.present();
         },
     }
@@ -180,7 +200,7 @@ export default {
   bottom: 0px;
   transform: translate(-50%, 0);
 }
-ion-checkbox {
+ion-checkbox,trash-btn{
     position: relative;
     top: 50%;
     left: 50%;
