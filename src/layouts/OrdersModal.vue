@@ -134,23 +134,13 @@ export default {
       return modalController.dismiss();
     },
     getStatus(status){
-        switch(status) {
-            case 'on-the-way':
-                return 'blue'
-            case 'assinged-to-driver':
-                return 'orange'
-            case 'pending' :
-                return 'yellow'
-            case 'delivered':
-                return 'green'
-            case 'accepted':
-                return 'pink'
-            case 'denied':
-                return 'red'
-            default:
-                console.log("Try looking up for a hint.");
-        }
-            
+        if(status == 'on-the-way')  return 'blue'
+        else if(status == 'assinged-to-driver')  return 'orange'
+        else if(status == 'pending')  return 'yellow'
+        else if(status == 'delivered')  return 'green'
+        else if(status == 'accepted')  return 'pink'
+        else if(status == 'denied')  return 'red'
+        else return 'black'
     },
   }
 };
