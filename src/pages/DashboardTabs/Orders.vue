@@ -28,7 +28,7 @@
                                       <h1>{{order.delivery_man.phone_number}}</h1>
                                     </div>
                                     <ion-avatar class="w-14 h-12">
-                                        <ion-img  :src="'http://127.0.0.1:8000/storage/' + order.delivery_man.image"></ion-img>
+                                        <ion-img  :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
                                     </ion-avatar>
                                 </div>
                                 <div v-else>Not defined</div>
@@ -97,23 +97,13 @@ export default {
             })
         },
         getStatus(status){
-            switch(status) {
-                case 'on-the-way':
-                    return 'blue'
-                case 'assinged-to-driver':
-                    return 'orange'
-                case 'pending' :
-                    return 'yellow'
-                case 'delivered':
-                    return 'green'
-                case 'accepted':
-                    return 'pink'
-                case 'denied':
-                    return 'red'
-                default:
-                    console.log("Try looking up for a hint.");
-            }
-            
+            if(status == 'on-the-way')  return 'blue'
+            else if(status == 'assinged-to-driver')  return 'orange'
+            else if(status == 'pending')  return 'yellow'
+            else if(status == 'delivered')  return 'green'
+            else if(status == 'accepted')  return 'pink'
+            else if(status == 'denied')  return 'red'
+            else return "black"
         },
         async openModal(order) {
             const modal = await modalController

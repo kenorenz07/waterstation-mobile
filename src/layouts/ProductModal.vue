@@ -37,7 +37,7 @@
           </ion-col>
           <ion-col>
             <div class="product-thumbnail">
-              <ion-img :src="product.image ? 'http://127.0.0.1:8000/storage/' + product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'">
+              <ion-img :src="product.image ? 'http://3.144.168.4/storage/' + product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'">
               </ion-img>
             </div>
             <div class="product-add">

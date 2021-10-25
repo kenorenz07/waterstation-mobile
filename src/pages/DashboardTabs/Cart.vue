@@ -10,7 +10,7 @@
                                     <ion-checkbox name="checked_product" v-model="cart.to_order" mode="ios" @ionChange="addToTempOrder(cart)"></ion-checkbox>
                                 </ion-col>
                                 <ion-col size="4">
-                                    <ion-img :src="cart.product.image ? 'http://127.0.0.1:8000/storage/' + cart.product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'"></ion-img>
+                                    <ion-img :src="cart.product.image ? 'http://3.144.168.4/storage/' + cart.product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'"></ion-img>
                                 </ion-col>
                                 <ion-col size="5">
                                     <h1>{{cart.product.name}}</h1>

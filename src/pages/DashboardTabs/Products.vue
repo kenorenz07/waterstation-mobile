@@ -6,7 +6,7 @@
                         <figure>
                             <ion-row class="loii-align-center">
                                 <ion-col>
-                                    <ion-img class="loii-img" :src="'http://127.0.0.1:8000/storage/' + product.image"></ion-img>
+                                    <ion-img class="loii-img" :src="'http://3.144.168.4/storage/' + product.image"></ion-img>
                                 </ion-col>
                                 <ion-col>
                                     <figcaption>
