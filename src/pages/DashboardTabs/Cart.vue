@@ -156,6 +156,7 @@ export default {
                 })
             modal.onDidDismiss()
             .then(() => {
+                this.temp_orders = []
                 this.initialize()
             });
 

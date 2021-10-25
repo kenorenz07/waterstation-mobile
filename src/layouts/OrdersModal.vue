@@ -1,0 +1,206 @@
+<template>
+  <ion-header>
+    <ion-toolbar style="--background: transparent; --border-width: 0; padding: 30px 10px 15px;">
+      <ion-buttons slot="start">
+        <ion-button  color="primary" slot="end" @click="closeModal" fill="outline">
+          <ion-icon  :icon="arrowBackOutline" slot="icon-only" ></ion-icon>
+        </ion-button>   
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <h1 class="text-2xl font-bold flex justify-center mb-2">ORDER ID : #{{order.id}}</h1>
+    <div class="product-lists border-2">
+      <ion-list>
+        <ion-item v-for="(item_to_order,i) in orders_products" :key="i">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <h1>Name : {{item_to_order.product.name}}</h1>
+                <span>Desc. : {{item_to_order.product.description}}</span>
+                <h1>{{item_to_order.product.is_refill ? 'For refill' : 'Container is for sale'}}</h1>
+                <span>Quantity : {{item_to_order.quantity}}</span>
+              </ion-col>
+              <ion-col>
+                <h1>Product price : </h1>
+                <h1 class="pl-2 font-semibold">₱ {{item_to_order.product.price}}</h1>
+                <h1>Total Price :</h1>
+                <h1 class="pl-2 font-semibold"> ₱ {{item_to_order.total_price}}</h1>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </div>
+    <h1 class="text-2xl text-white text-center rounded-2xl " :class="`bg-${getStatus(order.status)}-600`">STATUS {{order.status}}</h1>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h1 class="text-2xl mt-3 font-semibold">Total : </h1>
+                <h1 class="text-2xl pl-2 font-semibold"> ₱ {{order.total}} </h1>
+                <h1  class="text-2xl">Time to deliver : </h1>
+                <h1 class="pl-2 text-xl">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
+                <h1  class="text-2xl">Date to Deliver: </h1>
+                <h1 class="pl-2 text-xl">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
+
+            </ion-col>
+            <ion-col>
+                <h1 class="text-xl mt-3 font-semibold">Delivery man : </h1>
+                <div  v-if="order.delivery_man_id">
+                    <ion-avatar class="w-20 h-20">
+                        <ion-img :src="'http://127.0.0.1:8000/storage/' + order.delivery_man.image"></ion-img>
+                    </ion-avatar>
+
+                    <div class="mt-3 text-xl mt-3 font-semibold">
+                        <h1>{{order.delivery_man.name}}</h1>
+                        <h1>{{order.delivery_man.phone_number}}</h1>
+                    </div>
+                </div>
+                <div v-else>Not defined</div>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+    <!-- <div class="mt-2">
+        <h1 class="text-2xl font-bold flex justify-center ">Selected order : {{order.length}}</h1>
+        <h1 class="text-2xl font-bold flex justify-center ">Total : ₱ {{total_price_products.toFixed(2)}}</h1>
+        <ion-button @click="placeOrder" class="mt-5 text-2xl " expand="block" color="danger">Place order</ion-button>
+    </div> -->
+    
+  </ion-content>
+</template>
+
+<script>
+import { 
+  IonContent,
+  IonHeader,
+  IonAvatar,
+  IonImg,
+  IonToolbar,
+  IonButtons,
+  IonCol,
+  IonRow,
+  IonGrid,
+  IonList,
+  IonItem,
+  IonButton,
+  IonIcon,
+  modalController
+} from '@ionic/vue';
+import { arrowBackOutline } from 'ionicons/icons';
+
+export default {
+  name: 'Modal',
+  props: {
+    order: {
+        required: true,
+        type: Object,
+    }
+  },
+  components: { 
+    IonContent,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonCol,
+    IonRow,
+    IonGrid,
+    IonList,
+    IonItem,
+    IonButton,
+    IonIcon,
+    IonImg,
+    IonAvatar,
+
+  },
+  ionViewWillEnter () {
+    console.log(this.order)
+  },
+  data : () => ({
+    arrowBackOutline,
+    
+  }), 
+  mounted (){
+    console.log(this.order)
+  },
+  computed : {
+    orders_products(){
+        return JSON.parse(this.order.orders)
+    }
+  },
+  methods : {
+    closeModal(){
+      return modalController.dismiss();
+    },
+    getStatus(status){
+        switch(status) {
+            case 'on-the-way':
+                return 'blue'
+            case 'assinged-to-driver':
+                return 'orange'
+            case 'pending' :
+                return 'yellow'
+            case 'delivered':
+                return 'green'
+            case 'accepted':
+                return 'pink'
+            case 'denied':
+                return 'red'
+            default:
+                console.log("Try looking up for a hint.");
+        }
+            
+    },
+  }
+};
+</script>
+<style scoped>
+.loii-desc {
+  font-weight: 500;
+  font-size: 24px;
+}
+.loii-title{
+  font-size: 36px;
+  font-weight: 500;
+}
+.loii-price{
+    font-size: 24px;
+    font-weight: 700;
+    color: #914a91;
+}
+.loii-desc-price {
+  color: #40ae19;
+  font-size: 20px;
+}
+.loii-desc-head {
+  color: #9d9595;
+  font-size: 18px;
+}
+.product-lists {
+  max-height: 55%;
+  overflow-y: scroll;
+}
+/* .product-add {
+    display: flex;
+    align-order: center;
+    justify-content: space-around;
+    padding: 5px 0px;
+    margin: 25px;
+    background: linear-gradient(
+337deg, #fd1d1d, #fcb045);
+    border-radius: 5px;
+}
+.product-add ion-label,
+.product-add ion-button{
+  color: #fff;
+  font-size: 28px;
+}
+.addToCart {
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  bottom: 35px;
+  transform: translate(-50%, 0);
+} */
+</style>

@@ -40,9 +40,8 @@ const routes = [{
             {
                 path: 'home',
                 name: 'home',
-                // component: Home,
                 component: () =>
-                    import ('../pages/DashboardTabs/Home.vue')
+                    import ('../pages/DashboardTabs/Orders.vue')
             },
             {
                 path: 'cart',
@@ -57,6 +56,13 @@ const routes = [{
                 // component: Products,
                 component: () =>
                     import ('../pages/DashboardTabs/Products.vue')
+            },
+            {
+                path: 'reviews',
+                name: 'reviews',
+                // component: Products,
+                component: () =>
+                    import ('../pages/DashboardTabs/Reviews.vue')
             },
         ]
     },

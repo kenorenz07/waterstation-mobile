@@ -16,18 +16,22 @@
 
             <ion-tabs @ionTabsWillChange="beforeTabChange" @ionTabsDidChange="afterTabChange">
                 <ion-router-outlet />
-
                 <ion-tab-bar slot="bottom">
                     <ion-tab-button tab="home" :href="'/dashboard/home'">
-                        <ion-icon :icon="home"></ion-icon>
-                        <ion-label>Home</ion-label>
+                        <ion-icon :icon="reorderFourOutline"></ion-icon>
+                        <ion-label>Orders</ion-label>
                     </ion-tab-button>
                     <ion-tab-button tab="products" :href="'/dashboard/products'">
-                        <ion-icon :icon="grid"></ion-icon>
+                        <ion-icon :icon="waterOutline"></ion-icon>
+                        <ion-label>Products</ion-label>
                     </ion-tab-button>
                     <ion-tab-button tab="cart" :href="'/dashboard/cart'">
                         <ion-icon :icon="cart"></ion-icon>
                         <ion-label>Cart</ion-label>
+                    </ion-tab-button>
+                    <ion-tab-button tab="review" :href="'/dashboard/reviews'">
+                        <ion-icon :icon="starHalfOutline"></ion-icon>
+                        <ion-label>Reviews</ion-label>
                     </ion-tab-button>
                 </ion-tab-bar>
             </ion-tabs>
@@ -52,8 +56,7 @@ import {
     IonButton
 } from '@ionic/vue'
 
-import {  home, grid, cart,logOutOutline} from 'ionicons/icons';
-
+import {  waterOutline, cart,logOutOutline,reorderFourOutline,starHalfOutline} from 'ionicons/icons';
 
 export default {
     components: {
@@ -73,9 +76,10 @@ export default {
 
     },
     data: () => ({
-     home,
-     grid,
+     reorderFourOutline,
+     waterOutline,
      cart,
+     starHalfOutline,
      logOutOutline
     }),
     computed : {
