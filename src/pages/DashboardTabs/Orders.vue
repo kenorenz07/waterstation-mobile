@@ -1,4 +1,5 @@
 <template>
+
     <ion-page>
         <ion-page>
             <ion-list>
@@ -6,28 +7,28 @@
                         <!-- <figure> -->
                         <ion-row>
                             <ion-col >
-                                <h1 class="text-2xl">ORDER ID : #{{order.id}}</h1>
+                                <h1 class="">ORDER ID : #{{order.id}}</h1>
                             </ion-col> 
                             <ion-col>
-                                <h1 class="text-xl text-white text-center rounded-2xl " :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
+                                <h1 class="" :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
                             </ion-col>
                         </ion-row>
                         <ion-row >
-                            <ion-col class="pl-1">
-                                <h1 class="text-xl ">Total : ₱ {{order.total}} </h1>
+                            <ion-col class="">
+                                <h1 class="">Total : ₱ {{order.total}} </h1>
                                 <h1  >Time to deliver : </h1>
-                                <h1 class="pl-2">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
+                                <h1 class="">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
                                 <h1  >Date to Deliver: </h1>
-                                <h1 class="pl-2">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
+                                <h1 class="">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
                             </ion-col>
                             <ion-col>
                                 <h1  >Delivery man : </h1>
                                 <div class="flex justify-between" v-if="order.delivery_man_id">
-                                    <div class="mt-2">
+                                    <div class="">
                                       <h1>{{order.delivery_man.name}}</h1>
                                       <h1>{{order.delivery_man.phone_number}}</h1>
                                     </div>
-                                    <ion-avatar class="w-14 h-12">
+                                    <ion-avatar class="">
                                         <ion-img  :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
                                     </ion-avatar>
                                 </div>
@@ -38,7 +39,7 @@
                 </ion-card>
             </ion-list>
         </ion-page>
-        <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button @click="initialize">
                 <ion-icon :icon="reloadOutline"></ion-icon>
             </ion-fab-button>

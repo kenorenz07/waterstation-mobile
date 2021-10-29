@@ -2,7 +2,7 @@
    <ion-page>
        <ion-header>
             <ion-toolbar>
-                <ion-title>Dashboard</ion-title>
+                <ion-title>{{title}}</ion-title>
                  <ion-button @click="logoutCustomer" color="light" slot="end" fill="outline">
                     <ion-icon  slot="icon-only" :icon="logOutOutline"></ion-icon>
                 </ion-button>
@@ -17,19 +17,19 @@
             <ion-tabs @ionTabsWillChange="beforeTabChange" @ionTabsDidChange="afterTabChange">
                 <ion-router-outlet />
                 <ion-tab-bar slot="bottom">
-                    <ion-tab-button tab="home" :href="'/dashboard/home'">
+                    <ion-tab-button tab="home" @click="title = 'My Orders'" :href="'/dashboard/home'">
                         <ion-icon :icon="reorderFourOutline"></ion-icon>
                         <ion-label>Orders</ion-label>
                     </ion-tab-button>
-                    <ion-tab-button tab="products" :href="'/dashboard/products'">
+                    <ion-tab-button tab="products" @click="title = 'Products'" :href="'/dashboard/products'">
                         <ion-icon :icon="waterOutline"></ion-icon>
                         <ion-label>Products</ion-label>
                     </ion-tab-button>
-                    <ion-tab-button tab="cart" :href="'/dashboard/cart'">
+                    <ion-tab-button tab="cart" @click="title = 'My Cart'" :href="'/dashboard/cart'">
                         <ion-icon :icon="cart"></ion-icon>
                         <ion-label>Cart</ion-label>
                     </ion-tab-button>
-                    <ion-tab-button tab="review" :href="'/dashboard/reviews'">
+                    <ion-tab-button tab="review" @click="title = 'Reviews'" :href="'/dashboard/reviews'">
                         <ion-icon :icon="starHalfOutline"></ion-icon>
                         <ion-label>Reviews</ion-label>
                     </ion-tab-button>
@@ -59,6 +59,7 @@ import {
 import {  waterOutline, cart,logOutOutline,reorderFourOutline,starHalfOutline} from 'ionicons/icons';
 
 export default {
+
     components: {
         IonPage,
         IonHeader,
@@ -80,7 +81,8 @@ export default {
      waterOutline,
      cart,
      starHalfOutline,
-     logOutOutline
+     logOutOutline,
+     title: null,
     }),
     computed : {
     },
@@ -111,19 +113,15 @@ ion-avatar {
     width: 40px;
 }
 ion-tab-bar {
-    --border: none;
-    --background: #363636;
-    margin: 16px 20px;
-    padding: 10px 0px;
-    border-radius: 14px;
-    box-shadow: 0 3px 6px 0px rgba(0, 0, 0, .04), 0 1px 3px 0px rgba(0, 0, 0, .02);
+    border-top: 1px solid #7c7c7c;
+    box-shadow: 0px 0px 10px #7c7c7c;
 }
 
-ion-tab-button.ion-activated {
+/* ion-tab-button.ion-activated {
     color: #fff;
 }
 
 ion-tab-button:not(:first-child):not(:last-child) ion-icon {
     border-radius: 50px;
-}
+} */
 </style>

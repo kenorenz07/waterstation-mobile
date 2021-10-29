@@ -2,10 +2,11 @@
   <ion-header>
     <ion-toolbar style="--background: transparent; --border-width: 0; padding: 30px 10px 15px;">
       <ion-buttons slot="start">
-        <ion-button  color="primary" slot="end" @click="closeModal" fill="outline">
+        <ion-button  color="primary" slot="end" @click="closeModal" fill="clear">
             <ion-icon  :icon="arrowBackOutline" slot="icon-only" ></ion-icon>
         </ion-button>   
       </ion-buttons>
+      <p slot="end" class="loii-product-refill-sale">{{product.is_refill ? 'For refill' : 'Container is for sale'}}</p>
       <!-- <ion-title>{{ title }}</ion-title> -->
       <!-- <ion-avatar slot="end">
         <ion-img :src="'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y'"></ion-img>
@@ -13,45 +14,56 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+      <div class="product-thumbnail">
+        <ion-img :src="product.image ? 'http://3.144.168.4/storage/' + product.image :'../assets/img/no-image.png'">
+        </ion-img>
+      </div>
       <div class="product-header">
         <h1 class="loii-title">{{product.name}}</h1>
         <span class="loii-price">{{product.description}}</span>
       </div>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
+      <!-- <ion-grid>
+        <ion-row class="loii-align-center">
+          <ion-col> -->
             <div class="product-details">
               <div class="product-variant">
-                <ion-row>
-                  <ion-col>
-                    <p class="loii-price">{{product.is_refill ? 'For refill' : 'Container is for sale'}}</p>
-                    <p class="loii-desc-head">Price / product</p>
-                    <p class="loii-desc">₱ {{product.price}}</p>
-                    <p class="loii-desc-head">Total Price(Quantity * Price)</p>
-                    <p class="loii-desc-price">₱ {{ total_price_calculated.toFixed(2)}}</p>
-                  </ion-col>
-                </ion-row>
+                <!-- <ion-row> -->
+                  <!-- <ion-col> -->
+                    <div>
+                    <!-- <p class="loii-desc-head">Price per Product</p> -->
+                    <p class="loii-desc"><span>Price: </span> ₱ {{product.price}}</p>
+                    </div>
+                    <!-- <p class="loii-desc-head">Total Price</p> -->
+                    <!-- <p class="loii-desc-price">₱ {{ total_price_calculated.toFixed(2)}}</p> -->
+                    <div class="loii-quantity">
+                    <p>Quantity</p>
+                      <div class="product-add">
+                        <ion-buttons>
+                          <ion-button :disabled="quantity == 1" @click="quantity--">-</ion-button>
+                        </ion-buttons>
+                        <ion-label>{{quantity}}</ion-label>
+                        <ion-buttons>
+                          <ion-button @click="quantity++">+</ion-button>
+                        </ion-buttons>
+                      </div>
+                    </div>
+                  <!-- </ion-col> -->
+                <!-- </ion-row> -->
               </div>
-   
             </div>
-          </ion-col>
+          <!-- </ion-col>
           <ion-col>
-            <div class="product-thumbnail">
-              <ion-img :src="product.image ? 'http://3.144.168.4/storage/' + product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'">
-              </ion-img>
-            </div>
-            <div class="product-add">
-              <ion-buttons>
-                <ion-button :disabled="quantity == 1" @click="quantity--">-</ion-button>
-              </ion-buttons>
-              <ion-label>{{quantity}}</ion-label>
-              <ion-buttons>
-                <ion-button @click="quantity++">+</ion-button>
-              </ion-buttons>
-            </div>
+            
           </ion-col>
         </ion-row>
-      </ion-grid>
+        <ion-row>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+             
+          </ion-col>
+        </ion-row> -->
+      <!-- </ion-grid> -->
        <div class="addToCart">
             <ion-button expand="block" fill="solid" color="primary" @click="addToCart(product.id,)">Add to Cart</ion-button>
         </div>
@@ -67,10 +79,10 @@ import {
   IonButton,
   IonButtons,
   IonImg,
-  IonCol,
-  IonRow,
+  // IonCol,
+  // IonRow,
   IonLabel,
-  IonGrid,
+  // IonGrid,
   IonIcon,
   modalController,
 } from '@ionic/vue';
@@ -85,10 +97,10 @@ export default {
     IonButton,
     IonButtons,
     IonImg,
-    IonCol,
-    IonRow,
+    // IonCol,
+    // IonRow,
     IonLabel,
-    IonGrid,
+    // IonGrid,
     IonIcon,
   },
   props: {
@@ -134,8 +146,16 @@ export default {
 };
 </script>
 <style scoped>
+.loii-align-center {
+    align-items: center;
+}
 .loii-desc {
   font-weight: 500;
+  font-size: 24px;
+}
+.loii-desc span{
+  font-weight: 500;
+  font-weight: 400;
   font-size: 24px;
 }
 .loii-title{
@@ -143,9 +163,10 @@ export default {
   font-weight: 500;
 }
 .loii-price{
-    font-size: 24px;
-    font-weight: 700;
-    color: #914a91;
+  font-size: 18px;
+  font-weight: 400;
+  color: #6490dd;
+  line-height: 1rem;
 }
 .loii-desc-price {
   color: #40ae19;
@@ -156,12 +177,16 @@ export default {
   color: #9d9595;
   font-size: 18px;
 }
+.loii-product-refill-sale {
+  color: #000;
+}
 .product-add {
     display: flex;
     align-items: center;
     justify-content: space-around;
+        width: 50%;
     padding: 5px 0px;
-    margin: 25px;
+    margin: 25px 0;
     background: linear-gradient(
 337deg, #fd1d1d, #fcb045);
     border-radius: 5px;
@@ -171,11 +196,22 @@ export default {
   color: #fff;
   font-size: 28px;
 }
-.addToCart {
+/* .addToCart {
   position: absolute;
   width: 90%;
   left: 50%;
   bottom: 35px;
   transform: translate(-50%, 0);
+} */
+.loii-quantity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.product-header {
+      display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 </style>
