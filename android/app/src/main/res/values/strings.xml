@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">WaterStation</string>
-    <string name="title_activity_main">WaterStation</string>
-    <string name="package_name">water.station.app.calbayog</string>
-    <string name="custom_url_scheme">water.station.app.calbayog</string>
+    <string name="app_name">water-station</string>
+    <string name="title_activity_main">water-station</string>
+    <string name="package_name">my.water.station</string>
+    <string name="custom_url_scheme">my.water.station</string>
 </resources>

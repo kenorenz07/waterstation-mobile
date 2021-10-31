@@ -1,4 +1,4 @@
-package water.station.app.calbayog;
+package my.water.station;
 
 import com.getcapacitor.BridgeActivity;
 
