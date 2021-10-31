@@ -1,6 +1,13 @@
 {
 	"appId": "water.station.app.calbayog",
 	"appName": "WaterStation",
-	"webDir": "public",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "dist",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {}
 }
