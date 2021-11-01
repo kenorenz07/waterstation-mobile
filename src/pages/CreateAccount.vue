@@ -14,8 +14,9 @@
                 <ion-row>
                     <ion-col>
                         <ion-thumbnail>
-                            <ion-img></ion-img>
+                            <ion-img :src="customer.image"></ion-img>
                         </ion-thumbnail>
+                        <ion-button @click="takePhoto">take Pic</ion-button>
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -55,6 +56,7 @@
 
 <script>
 import {camera,trash,close} from 'ionicons/icons';
+import { Camera, CameraResultType,CameraSource} from '@capacitor/camera';
 import { 
     IonItem ,
     IonButton,
@@ -92,6 +94,7 @@ export default {
     },
     data: () => ({
         customer : {
+            image: '',
             name: '',
             email: '',
             phone_number: null,
@@ -100,6 +103,16 @@ export default {
         }
     }),
     methods: {
+        async takePhoto(){
+            const image = await Camera.getPhoto({
+                quality: 90,
+                allowEditing: true,
+                source: CameraSource.Camera,
+                resultType: CameraResultType.Base64,
+            });
+
+            this.customer.image ="data:image/jpeg;base64," + image.base64String;
+        },
         async register(){
             if(this.customer.confirm_password != this.customer.password){
 
