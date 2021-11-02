@@ -5,7 +5,7 @@
             <ion-list>
                 <ion-card @click="openModal(order)" v-for="order in orders" :key="order.id" class="loii-align-center">
                         <!-- <figure> -->
-                        <ion-row>
+                        <!-- <ion-row>
                             <ion-col >
                                 <h1 class="">ORDER ID : #{{order.id}}</h1>
                             </ion-col> 
@@ -34,7 +34,35 @@
                                 </div>
                                 <div v-else>Not defined</div>
                             </ion-col>
-                        </ion-row>
+                        </ion-row> -->
+                        
+                        <!-- <ion-grid>
+                            <ion-row>
+                                <ion-col>
+                                    <h1 class="" :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
+                                    <h1 class="">ORDER ID : #{{order.id}}</h1>
+                                </ion-col>
+                                <ion-col>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid> -->
+                        <ion-card-header>
+                                <div>
+                                    <span>Status</span>
+                                    <div :style="`background-color:${getStatus(order.status)};`"></div>
+                                </div>
+
+                            <ion-card-title>
+                                <span>ORDER ID : #{{order.id}}</span>
+                                </ion-card-title>
+                            <ion-card-subtitle>
+                                <span>To be Delivered by: Delivery Man Name</span>
+                                <span>Total: Total Amount</span>
+                            </ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <span>tap for more info</span>
+                        </ion-card-content>
                         <!-- </figure> -->
                 </ion-card>
             </ion-list>
@@ -52,13 +80,13 @@ import {
     IonList, 
     IonCard,
     IonPage,
-    IonRow,
-    IonCol,
+    // IonRow,
+    // IonCol,
     IonFab,
     IonFabButton,
     IonIcon,
-    IonImg,
-    IonAvatar,
+    // IonImg,
+    // IonAvatar,
     modalController
     } from '@ionic/vue'
 import { addCircleOutline,removeCircleOutline,cartOutline,reloadOutline } from 'ionicons/icons';
@@ -69,13 +97,13 @@ export default {
         IonList, 
         IonCard,
         IonPage,
-        IonRow,
-        IonCol,
+        // IonRow,
+        // IonCol,
         IonFab,
         IonFabButton,
         IonIcon,
-        IonImg,
-        IonAvatar,
+        // IonImg,
+        // IonAvatar,
     },
     data : () => ({
         addCircleOutline,
@@ -138,5 +166,18 @@ export default {
 } */
 .ion-page{
     overflow-y: scroll;
+}
+ion-card-header>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+}
+ion-card-header>div>div{
+    height: 20px;
+    width: 20px;
+    float: right;
+    /* border: 1px solid; */
+    border-radius: 25px;
 }
 </style>
