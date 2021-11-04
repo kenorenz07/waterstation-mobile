@@ -126,13 +126,13 @@ export default {
             })
         },
         getStatus(status){
-            if(status == 'on-the-way')  return 'blue'
-            else if(status == 'assinged-to-driver')  return 'orange'
-            else if(status == 'pending')  return 'yellow'
-            else if(status == 'delivered')  return 'green'
-            else if(status == 'accepted')  return 'pink'
-            else if(status == 'denied')  return 'red'
-            else return "black"
+            if(status == 'on-the-way')  return '#2ECC71'
+            else if(status == 'assinged-to-driver')  return '#fab000'
+            else if(status == 'pending')  return '#FBD254'
+            else if(status == 'delivered')  return '#2ECC71'
+            else if(status == 'accepted')  return '#2C3E50'
+            else if(status == 'denied')  return '#E74C3C'
+            else return 'black'
         },
         async openModal(order) {
             const modal = await modalController

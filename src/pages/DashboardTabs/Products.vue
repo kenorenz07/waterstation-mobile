@@ -1,18 +1,5 @@
 <template>
     <ion-page>
-            <section class="filter-container">
-                <ion-chip color="secondary">
-                    <ion-label color="primary">For Sell</ion-label>
-                </ion-chip>
-                <!-- <ion-chip>
-                    <ion-label>For Sell</ion-label>
-                    <ion-icon name="close-circle"></ion-icon>
-                </ion-chip> -->
-                <ion-chip>
-                    <ion-label>For Refill</ion-label>
-                    <ion-icon name="close-circle"></ion-icon>
-                </ion-chip>
-            </section>
             <section>
                 <ion-list>
                     <ion-card @click="openModal(product)" v-for="product in products" :key="product.id">
@@ -47,8 +34,6 @@ import {
     IonRow,
     IonImg,
     IonCol,
-    IonChip,
-    IonIcon,
     modalController
     } from '@ionic/vue'
 import { addCircleOutline,removeCircleOutline,cartOutline } from 'ionicons/icons';
@@ -62,8 +47,6 @@ export default {
         IonRow,
         IonImg,
         IonCol,
-        IonChip,
-        IonIcon,
     },
     data : () => ({
         addCircleOutline,

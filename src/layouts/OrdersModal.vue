@@ -6,11 +6,27 @@
           <ion-icon  :icon="arrowBackOutline" slot="icon-only" ></ion-icon>
         </ion-button>
       </ion-buttons>
+      <div class="loii-modal-title">
+        <h4 class="ion-text-center">ORDER ID : #{{order.id}}</h4>
+      </div>
+     
     </ion-toolbar>
+    <div>
+      <ion-row>
+        <ion-col>
+          <span style="color: #000;"><strong>Items ordered:</strong> {{orders_products.length}}</span>
+        </ion-col>
+        <ion-col>
+           <div class="loii-container">
+              <p><strong style="color: #000;">STATUS:</strong><span :style="`background-color: ${getStatus(order.status)};`">{{order.status}}</span></p>
+              
+            </div>
+        </ion-col>
+      </ion-row>
+    </div>
   </ion-header>
   <ion-content class="ion-padding">
-    <h1 class="ion-text-center">ORDER ID : #{{order.id}}</h1>
-    <span><strong>Number of Items:</strong> {{orders_products.length}}</span>
+    
     <div class="product-list">
       <ion-item v-for="(item_to_order,i) in orders_products" :key="i">
           <ion-grid>
@@ -40,31 +56,42 @@
     <div class="order-details">
       <ion-grid>
         <ion-row>
-          <div class="loii-container">
-            <span :style="`color: ${getStatus(order.status)}; text-transform: capitalize;`"><strong style="color: #000;">STATUS:</strong> {{order.status}}</span>
-          </div>
-        </ion-row>
-        <ion-row>
           <ion-col>
             <div  v-if="order.delivery_man_id">
+              <div>
+                  <p><strong>Delivery Man:</strong></p>
+              </div>
+              <div>
                 <ion-avatar class="">
                     <ion-img :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
                 </ion-avatar>
-
                 <div class="">
-                    <h1>{{order.delivery_man.name}}</h1>
-                    <h1>{{order.delivery_man.phone_number}}</h1>
+                    <span><strong>{{order.delivery_man.name}}</strong></span><br>
+                    <span>{{order.delivery_man.phone_number}}</span>
                 </div>
+              </div>
             </div>
             <div v-else><span><strong>Deliver by:</strong>Not yet assinged</span></div>
+            <div>
+              <p>
+                <span><strong>Time to deliver : </strong></span><br>
+                <span>{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</span>
+              </p>
+              <p>
+                <span><strong>Date to Deliver: </strong></span><br>
+                <span>{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</span>
+              </p>
+            </div>
           </ion-col>
           <ion-col>
+            <div>
               <ion-row>
                 <span style="margin: 5px 0;"><strong>Price:</strong> ₱ </span>
               </ion-row>
               <ion-row>
                 <span style="margin: 5px 0;"><strong>Total price:</strong> ₱ </span>
               </ion-row>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -193,12 +220,12 @@ export default {
       return modalController.dismiss();
     },
     getStatus(status){
-        if(status == 'on-the-way')  return 'blue'
-        else if(status == 'assinged-to-driver')  return 'orange'
-        else if(status == 'pending')  return 'yellow'
-        else if(status == 'delivered')  return 'green'
-        else if(status == 'accepted')  return 'pink'
-        else if(status == 'denied')  return 'red'
+        if(status == 'on-the-way')  return '#2ECC71'
+        else if(status == 'assinged-to-driver')  return '#fab000'
+        else if(status == 'pending')  return '#FBD254'
+        else if(status == 'delivered')  return '#2ECC71'
+        else if(status == 'accepted')  return '#2C3E50'
+        else if(status == 'denied')  return '#E74C3C'
         else return 'black'
     },
   }
@@ -231,44 +258,56 @@ export default {
   overflow-y: scroll;
 }
 .order-details {
-  position: sticky;
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
   border-top: 1px solid; 
-  margin: 0 -15px;
+}
+.order-details>ion-grid {
+  padding: 0;
+}
+.order-details>ion-grid ion-row ion-col{
+  padding: 0;
+  border-right: 1px solid;
+}
+.order-details>ion-grid ion-row ion-col:last-child div{
+  padding: 0 15px;
+}
+.order-details>ion-grid ion-row ion-col:first-child>div{
+  padding: 0 15px;
+}
+.order-details>ion-grid ion-row ion-col:first-child>div>div:first-child p{
+  margin: 5px 0;
+}
+.order-details>ion-grid ion-row ion-col:first-child>div>div:last-child{
+    display: flex;
+    justify-content: space-between;
+}
+.loii-modal-title {
+  color: #000;
+}
+.loii-modal-title h4 {
+  margin: 0;
 }
 .loii-container {
-  background: #7da1d8;
   border-radius: 6px;
-  padding: 20px;
-  margin-bottom: 10px;
 }
-/* ion-content>div:first-child {
-  display: flex;
-    align-items: center;
-    justify-content: space-around;
+.loii-container strong {
+  margin-right: 5px;
 }
-ion-content>div:first-child {
-  
-} */
-/* .product-add {
-    display: flex;
-    align-order: center;
-    justify-content: space-around;
-    padding: 5px 0px;
-    margin: 25px;
-    background: linear-gradient(
-337deg, #fd1d1d, #fcb045);
-    border-radius: 5px;
+.loii-container p {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 5px;
 }
-.product-add ion-label,
-.product-add ion-button{
-  color: #fff;
-  font-size: 28px;
+.loii-container span {
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+    font-weight: 600;
+    padding: 5px 15px;
+    border-radius: 25px;
 }
-.addToCart {
-  position: absolute;
-  width: 90%;
-  left: 50%;
-  bottom: 35px;
-  transform: translate(-50%, 0);
-} */
 </style>
