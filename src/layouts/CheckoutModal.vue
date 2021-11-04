@@ -2,15 +2,15 @@
   <ion-header>
     <ion-toolbar style="--background: transparent; --border-width: 0; padding: 30px 10px 15px;">
       <ion-buttons slot="start">
-        <ion-button  color="primary" slot="end" @click="closeModal" fill="outline">
+        <ion-button  color="primary" slot="end" @click="closeModal" fill="clear">
           <ion-icon  :icon="arrowBackOutline" slot="icon-only" ></ion-icon>
         </ion-button>   
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <h1 class="text-2xl font-bold flex justify-center mb-2">Products</h1>
-    <div class="product-lists border-2">
+    <h1 class="flex justify-center mb-2 text-2xl font-bold">Products</h1>
+    <div class="border-2 product-lists">
       <ion-list>
         <ion-item v-for="(item_to_order,i) in items " :key="i">
           <ion-grid>
@@ -30,8 +30,8 @@
       </ion-list>
     </div>
     <div class="mt-2">
-        <h1 class="text-2xl font-bold flex justify-center ">Selected items : {{items.length}}</h1>
-        <h1 class="text-2xl font-bold flex justify-center ">Total : ₱ {{total_price_products.toFixed(2)}}</h1>
+        <h1 class="flex justify-center text-2xl font-bold ">Selected items : {{items.length}}</h1>
+        <h1 class="flex justify-center text-2xl font-bold ">Total : ₱ {{total_price_products.toFixed(2)}}</h1>
         <ion-button @click="placeOrder" class="mt-5 text-2xl " expand="block" color="danger">Place order</ion-button>
     </div>
     

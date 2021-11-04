@@ -12,11 +12,12 @@
         <ion-content>
             <ion-grid>
                 <ion-row>
-                    <ion-col>
-                        <ion-thumbnail>
-                            <ion-img :src="customer.image"></ion-img>
-                        </ion-thumbnail>
-                        <ion-button @click="takePhoto">take Pic</ion-button>
+                    <ion-col style="text-align: center; margin-top: 10px">
+                        <!-- <ion-thumbnail> -->
+                            <span> Click image to change</span>
+                            <ion-img :src="customer.image ? customer.image : '../assets/img/no-image.png'" @click="takePhoto" class="loii-customer-pic"></ion-img>
+                                <!-- <ion-button @click="takePhoto">take Pic</ion-button> -->
+                        <!-- </ion-thumbnail> -->
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -26,13 +27,27 @@
                             <ion-input v-model="customer.name" type="text" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label class="required" position="floating">Email</ion-label>
-                            <ion-input v-model="customer.email" type="email" required></ion-input>
+                            <ion-label position="floating">Email</ion-label>
+                            <ion-input v-model="customer.email" type="email"></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating">Phone Number</ion-label>
-                            <ion-input v-model="customer.phone_number" type="number" required></ion-input>
+                            <ion-label class="required" position="floating">Address</ion-label>
+                            <ion-input type="text" required></ion-input>
+                            <!-- <ion-input v-model="customer.email" type="text" required></ion-input> -->
                         </ion-item>
+                        <ion-row>
+                            <ion-col style="display: flex;">
+                                <ion-item>
+                                    <ion-label class="required" position="floating">Zip Code</ion-label>
+                                    <ion-input type="number" required></ion-input>
+                                    <!-- <ion-input v-model="customer.email" type="number" required></ion-input> -->
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="floating">Phone Number</ion-label>
+                                    <ion-input v-model="customer.phone_number" type="number" required></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
                         <ion-item>
                             <ion-label class="required" position="floating">Password</ion-label>
                             <ion-input v-model="customer.password" type="password" required></ion-input>
@@ -154,5 +169,9 @@ export default {
 .required::before{
     content: "* ";
     color: red;
+}
+.loii-customer-pic {
+    width: 250px;
+    margin: 10px auto;
 }
 </style>

@@ -13,12 +13,12 @@
                                     <ion-img :src="cart.product.image ? 'http://3.144.168.4/storage/' + cart.product.image :'https://cdn.shopify.com/s/files/1/0297/0429/0397/products/Sip_Water_Bottle_500ml_800x.jpg?v=1588434244'"></ion-img>
                                 </ion-col>
                                 <ion-col size="5">
-                                    <h1>{{cart.product.name}}</h1>
+                                    <h1 class="loii-product-name">{{cart.product.name}}</h1>
                                     <ion-row>
                                         <ion-col style="padding-left:0;">
-                                            <p class="product-desc">{{cart.product.description}}</p>
+                                            <!-- <p class="product-desc">{{cart.product.description}}</p> -->
                                             <p class="product-price">₱ {{cart.total_price}}</p>
-                                            <p class="product-price"> {{cart.product.is_refill ? 'For refill' : 'Container is for sale'}}</p>
+                                            <p class="product-type"> {{cart.product.is_refill ? 'For refill' : 'Container is for sale'}}</p>
                                            
                                             <div class="product-add">
                                                 <ion-buttons>
@@ -203,10 +203,20 @@ export default {
 }
 ion-checkbox,trash-btn{
     position: relative;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -100%); */
     --border-radius: 5px;
     --border-color: #433f3f;
+}
+.product-type {
+    font-size: 16px;
+    color: #000;
+}
+ion-grid>ion-row{
+    align-items: center;
+}
+.loii-product-name {
+    font-weight: 500;
 }
 </style>

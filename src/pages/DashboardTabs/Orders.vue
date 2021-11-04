@@ -1,44 +1,73 @@
 <template>
+
     <ion-page>
         <ion-page>
             <ion-list>
                 <ion-card @click="openModal(order)" v-for="order in orders" :key="order.id" class="loii-align-center">
                         <!-- <figure> -->
-                        <ion-row>
+                        <!-- <ion-row>
                             <ion-col >
-                                <h1 class="text-2xl">ORDER ID : #{{order.id}}</h1>
+                                <h1 class="">ORDER ID : #{{order.id}}</h1>
                             </ion-col> 
                             <ion-col>
-                                <h1 class="text-xl text-white text-center rounded-2xl " :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
+                                <h1 class="" :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
                             </ion-col>
                         </ion-row>
                         <ion-row >
-                            <ion-col class="pl-1">
-                                <h1 class="text-xl ">Total : ₱ {{order.total}} </h1>
+                            <ion-col class="">
+                                <h1 class="">Total : ₱ {{order.total}} </h1>
                                 <h1  >Time to deliver : </h1>
-                                <h1 class="pl-2">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
+                                <h1 class="">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
                                 <h1  >Date to Deliver: </h1>
-                                <h1 class="pl-2">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
+                                <h1 class="">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
                             </ion-col>
                             <ion-col>
                                 <h1  >Delivery man : </h1>
                                 <div class="flex justify-between" v-if="order.delivery_man_id">
-                                    <div class="mt-2">
+                                    <div class="">
                                       <h1>{{order.delivery_man.name}}</h1>
                                       <h1>{{order.delivery_man.phone_number}}</h1>
                                     </div>
-                                    <ion-avatar class="w-14 h-12">
+                                    <ion-avatar class="">
                                         <ion-img  :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
                                     </ion-avatar>
                                 </div>
                                 <div v-else>Not defined</div>
                             </ion-col>
-                        </ion-row>
+                        </ion-row> -->
+                        
+                        <!-- <ion-grid>
+                            <ion-row>
+                                <ion-col>
+                                    <h1 class="" :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
+                                    <h1 class="">ORDER ID : #{{order.id}}</h1>
+                                </ion-col>
+                                <ion-col>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid> -->
+                        <ion-card-header>
+                                <div>
+                                    <span>Status</span>
+                                    <div :style="`background-color:${getStatus(order.status)};`"></div>
+                                </div>
+
+                            <ion-card-title>
+                                <span>ORDER ID : #{{order.id}}</span>
+                                </ion-card-title>
+                            <ion-card-subtitle>
+                                <span>To be Delivered by: Delivery Man Name</span>
+                                <span>Total: Total Amount</span>
+                            </ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <span>tap for more info</span>
+                        </ion-card-content>
                         <!-- </figure> -->
                 </ion-card>
             </ion-list>
         </ion-page>
-        <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button @click="initialize">
                 <ion-icon :icon="reloadOutline"></ion-icon>
             </ion-fab-button>
@@ -51,13 +80,13 @@ import {
     IonList, 
     IonCard,
     IonPage,
-    IonRow,
-    IonCol,
+    // IonRow,
+    // IonCol,
     IonFab,
     IonFabButton,
     IonIcon,
-    IonImg,
-    IonAvatar,
+    // IonImg,
+    // IonAvatar,
     modalController
     } from '@ionic/vue'
 import { addCircleOutline,removeCircleOutline,cartOutline,reloadOutline } from 'ionicons/icons';
@@ -68,13 +97,13 @@ export default {
         IonList, 
         IonCard,
         IonPage,
-        IonRow,
-        IonCol,
+        // IonRow,
+        // IonCol,
         IonFab,
         IonFabButton,
         IonIcon,
-        IonImg,
-        IonAvatar,
+        // IonImg,
+        // IonAvatar,
     },
     data : () => ({
         addCircleOutline,
@@ -97,13 +126,13 @@ export default {
             })
         },
         getStatus(status){
-            if(status == 'on-the-way')  return 'blue'
-            else if(status == 'assinged-to-driver')  return 'orange'
-            else if(status == 'pending')  return 'yellow'
-            else if(status == 'delivered')  return 'green'
-            else if(status == 'accepted')  return 'pink'
-            else if(status == 'denied')  return 'red'
-            else return "black"
+            if(status == 'on-the-way')  return '#2ECC71'
+            else if(status == 'assinged-to-driver')  return '#fab000'
+            else if(status == 'pending')  return '#FBD254'
+            else if(status == 'delivered')  return '#2ECC71'
+            else if(status == 'accepted')  return '#2C3E50'
+            else if(status == 'denied')  return '#E74C3C'
+            else return 'black'
         },
         async openModal(order) {
             const modal = await modalController
@@ -137,5 +166,18 @@ export default {
 } */
 .ion-page{
     overflow-y: scroll;
+}
+ion-card-header>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+}
+ion-card-header>div>div{
+    height: 20px;
+    width: 20px;
+    float: right;
+    /* border: 1px solid; */
+    border-radius: 25px;
 }
 </style>
