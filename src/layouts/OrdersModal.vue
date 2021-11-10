@@ -47,7 +47,7 @@
                 </div>
               </ion-col>
               <ion-col>
-                <h2>₱ {{item_to_order.product.total_price}}</h2>
+                <h2>₱ {{item_to_order.total_price}}</h2>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -73,6 +73,13 @@
             </div>
             <div v-else><span><strong>Deliver by:</strong>Not yet assinged</span></div>
             <div>
+              <ion-row>
+                <span style="margin: 5px 0;"><strong> Total Price:</strong> ₱ {{order.total}}</span>
+              </ion-row>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
               <p>
                 <span><strong>Time to deliver : </strong></span><br>
                 <span>{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</span>
@@ -81,16 +88,6 @@
                 <span><strong>Date to Deliver: </strong></span><br>
                 <span>{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</span>
               </p>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div>
-              <ion-row>
-                <span style="margin: 5px 0;"><strong>Price:</strong> ₱ </span>
-              </ion-row>
-              <ion-row>
-                <span style="margin: 5px 0;"><strong>Total price:</strong> ₱ </span>
-              </ion-row>
             </div>
           </ion-col>
         </ion-row>
@@ -220,12 +217,12 @@ export default {
       return modalController.dismiss();
     },
     getStatus(status){
-        if(status == 'on-the-way')  return '#2ECC71'
-        else if(status == 'assinged-to-driver')  return '#fab000'
-        else if(status == 'pending')  return '#FBD254'
-        else if(status == 'delivered')  return '#2ECC71'
-        else if(status == 'accepted')  return '#2C3E50'
-        else if(status == 'denied')  return '#E74C3C'
+        if(status == 'on-the-way')  return '#e98797'
+        else if(status == 'assigned-to-driver')  return '#d8a648'
+        else if(status == 'pending')  return '#c0c038'
+        else if(status == 'delivered')  return '#337382'
+        else if(status == 'accepted')  return '#40bb40'
+        else if(status == 'denied')  return '#c24242'
         else return 'black'
     },
   }
@@ -254,7 +251,7 @@ export default {
   font-size: 18px;
 }
 .product-list {
-  height: 275px;
+  height: 340px;
   overflow-y: scroll;
 }
 .order-details {

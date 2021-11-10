@@ -88,7 +88,7 @@ export default {
         loginDelivery() {
             this.$axios.post('delivery_man/login', this.delivery_man).then(({data}) => {
                 localStorage.setItem("token", data.token);
-                this.$router.push('/delivery');
+                this.$router.push('/delivery/orders');
             })
         }
     }

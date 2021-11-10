@@ -4,66 +4,23 @@
         <ion-page>
             <ion-list>
                 <ion-card @click="openModal(order)" v-for="order in orders" :key="order.id" class="loii-align-center">
-                        <!-- <figure> -->
-                        <!-- <ion-row>
-                            <ion-col >
-                                <h1 class="">ORDER ID : #{{order.id}}</h1>
-                            </ion-col> 
-                            <ion-col>
-                                <h1 class="" :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row >
-                            <ion-col class="">
-                                <h1 class="">Total : ₱ {{order.total}} </h1>
-                                <h1  >Time to deliver : </h1>
-                                <h1 class="">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
-                                <h1  >Date to Deliver: </h1>
-                                <h1 class="">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
-                            </ion-col>
-                            <ion-col>
-                                <h1  >Delivery man : </h1>
-                                <div class="flex justify-between" v-if="order.delivery_man_id">
-                                    <div class="">
-                                      <h1>{{order.delivery_man.name}}</h1>
-                                      <h1>{{order.delivery_man.phone_number}}</h1>
-                                    </div>
-                                    <ion-avatar class="">
-                                        <ion-img  :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
-                                    </ion-avatar>
-                                </div>
-                                <div v-else>Not defined</div>
-                            </ion-col>
-                        </ion-row> -->
-                        
-                        <!-- <ion-grid>
-                            <ion-row>
-                                <ion-col>
-                                    <h1 class="" :class="`bg-${getStatus(order.status)}-600`">{{order.status}}</h1>
-                                    <h1 class="">ORDER ID : #{{order.id}}</h1>
-                                </ion-col>
-                                <ion-col>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid> -->
-                        <ion-card-header>
-                                <div>
-                                    <span>Status</span>
-                                    <div :style="`background-color:${getStatus(order.status)};`"></div>
-                                </div>
+                    <ion-card-header>
+                            <div>
+                                <span>Status</span>
+                                <div :style="`background-color:${getStatus(order.status)};`"></div>
+                            </div>
 
-                            <ion-card-title>
-                                <span>ORDER ID : #{{order.id}}</span>
-                                </ion-card-title>
-                            <ion-card-subtitle>
-                                <span>To be Delivered by: Delivery Man Name</span>
-                                <span>Total: Total Amount</span>
-                            </ion-card-subtitle>
-                        </ion-card-header>
-                        <ion-card-content>
-                            <span>tap for more info</span>
-                        </ion-card-content>
-                        <!-- </figure> -->
+                        <ion-card-title>
+                            <span>ORDER ID : #{{order.id}}</span>
+                            </ion-card-title>
+                        <ion-card-subtitle>
+                            <p>To be Delivered by: {{order.delivery_man_id ? order.delivery_man.name : "Not Assigned"}}</p>
+                            <span>Total: {{order.total}}</span>
+                        </ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <span>tap for more info</span>
+                    </ion-card-content>
                 </ion-card>
             </ion-list>
         </ion-page>
@@ -85,6 +42,10 @@ import {
     IonFab,
     IonFabButton,
     IonIcon,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardHeader,
+    IonCardContent,
     // IonImg,
     // IonAvatar,
     modalController
@@ -97,6 +58,10 @@ export default {
         IonList, 
         IonCard,
         IonPage,
+        IonCardTitle,
+        IonCardSubtitle,
+        IonCardHeader,
+        IonCardContent,
         // IonRow,
         // IonCol,
         IonFab,
@@ -120,18 +85,17 @@ export default {
     },
     methods : {
         initialize(){
-            console.log('sgs')
             this.$axios.get('/user/v1/order/all').then(({data}) => {
                 this.orders = data
             })
         },
         getStatus(status){
-            if(status == 'on-the-way')  return '#2ECC71'
-            else if(status == 'assinged-to-driver')  return '#fab000'
-            else if(status == 'pending')  return '#FBD254'
-            else if(status == 'delivered')  return '#2ECC71'
-            else if(status == 'accepted')  return '#2C3E50'
-            else if(status == 'denied')  return '#E74C3C'
+            if(status == 'on-the-way')  return '#e98797'
+            else if(status == 'assigned-to-driver')  return '#d8a648'
+            else if(status == 'pending')  return '#c0c038'
+            else if(status == 'delivered')  return '#337382'
+            else if(status == 'accepted')  return '#40bb40'
+            else if(status == 'denied')  return '#c24242'
             else return 'black'
         },
         async openModal(order) {

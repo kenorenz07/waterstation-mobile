@@ -24,7 +24,25 @@ const routes = [{
         component: DeliveryMan,
         meta: {
             requiresAuth: true
-        }
+        },
+        children: [{
+            path: '',
+            redirect: 'orders'
+        },
+        {
+            path: 'orders',
+            name: 'orders',
+            component: () =>
+                import ('../pages/DeliveryTabs/Orders.vue')
+        },
+        {
+            path: 'sales',
+            name: 'sales',
+            // component: Cart,
+            component: () =>
+                import ('../pages/DeliveryTabs/Sales.vue')
+        },
+    ]
     },
     {
         path: '/dashboard/',
