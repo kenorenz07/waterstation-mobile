@@ -57,17 +57,17 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <div  v-if="order.delivery_man_id">
+            <div  v-if="order.user_id">
               <div>
-                  <p><strong>Delivery Man:</strong></p>
+                  <p><strong>Customer:</strong></p>
               </div>
               <div>
                 <ion-avatar class="">
-                    <ion-img :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
+                    <ion-img :src="'http://3.144.168.4/storage/' + order.user.image"></ion-img>
                 </ion-avatar>
                 <div class="">
-                    <span><strong>{{order.delivery_man.name}}</strong></span><br>
-                    <span>{{order.delivery_man.phone_number}}</span>
+                    <span><strong>{{order.user.name}}</strong></span><br>
+                    <span>{{order.user.phone_number}}</span>
                 </div>
               </div>
             </div>
@@ -91,6 +91,23 @@
             </div>
           </ion-col>
         </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating">Set Time</ion-label>
+                    <ion-datetime display-format="h:mm a" v-model="time_to_deliver"></ion-datetime>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating">Set Date("MM/DD/YYYY")</ion-label>
+                    <ion-datetime display-format="MM/DD/YYYY" v-model="date_to_deliver"></ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-button expand="block" color="warning" @click="setDateAndTimeToDeliver">Set Time</ion-button>
+        <ion-button expand="block" color="secondary" @click="changeStatus('on-the-way')">Update to OTW</ion-button>
+        <ion-button expand="block" color="success" @click="changeStatus('delivered')">Update to Delivered</ion-button>
       </ion-grid>
     </div>
     
@@ -112,6 +129,8 @@ import {
   IonItem,
   IonButton,
   IonIcon,
+  IonDatetime,
+  IonLabel,
   modalController
 } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
@@ -138,24 +157,52 @@ export default {
     IonIcon,
     IonImg,
     IonAvatar,
+    IonDatetime,
+    IonLabel,
 
   },
   ionViewWillEnter () {
     console.log(this.order)
+    this.date_to_deliver = this.order.date_to_deliver? this.order.date_to_deliver :  (new Date()).toISOString().split('T')[0]
+    this.time_to_deliver = this.order.time_to_deliver? this.order.time_to_deliver :  "12:00"
   },
   data : () => ({
     arrowBackOutline,
-    
+    date_to_deliver: (new Date()).toISOString().split('T')[0],
+    time_to_deliver: "12:00", 
   }), 
   mounted (){
     console.log(this.order)
+    this.date_to_deliver = this.order.date_to_deliver? this.order.date_to_deliver :  (new Date()).toISOString().split('T')[0]
+    this.time_to_deliver = this.order.time_to_deliver? this.order.time_to_deliver :  "12:00"
   },
   computed : {
     orders_products(){
         return JSON.parse(this.order.orders)
     }
   },
+  watch : {
+      time_to_deliver(val) {
+          console.log(val,'time_to_deliver')
+      }
+  },
   methods : {
+    setDateAndTimeToDeliver(){
+        this.$axios.post('/delivery_man/v1/order-set-delivery-time-date/'+this.order.id,
+        {
+            time_filter:this.time_to_deliver,
+            date_filter:this.date_to_deliver
+        }).then(({data}) => {
+            data
+            this.closeModal()
+        })
+    },
+    changeStatus(status) {
+        this.$axios.post('/delivery_man/v1/order/status/'+this.order.id,{status:status}).then(({data}) => {
+            data
+            this.closeModal()
+        })
+    },
     closeModal(){
       return modalController.dismiss();
     },
@@ -194,16 +241,10 @@ export default {
   font-size: 18px;
 }
 .product-list {
-  height: 340px;
+  height: 200px;
   overflow-y: scroll;
 }
 .order-details {
-  display: block;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0;
   border-top: 1px solid; 
 }
 .order-details>ion-grid {
@@ -211,7 +252,6 @@ export default {
 }
 .order-details>ion-grid ion-row ion-col{
   padding: 0;
-  border-right: 1px solid;
 }
 .order-details>ion-grid ion-row ion-col:last-child div{
   padding: 0 15px;
