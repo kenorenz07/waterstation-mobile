@@ -3,7 +3,7 @@
        <ion-header>
             <ion-toolbar>
                 <ion-title>{{title}}</ion-title>
-                 <ion-button @click="logoutCustomer" color="light" slot="end" fill="outline">
+                 <ion-button @click="logoutCustomer" color="light" slot="start" fill="outline">
                     <ion-icon  slot="icon-only" :icon="logOutOutline"></ion-icon>
                 </ion-button>
                 <!-- <ion-avatar slot="end" >
@@ -29,7 +29,7 @@
                         <ion-icon :icon="cart"></ion-icon>
                         <ion-label>Cart</ion-label>
                     </ion-tab-button>
-                    <ion-tab-button tab="review" @click="title = 'Reviews'" :href="'/dashboard/reviews'">
+                    <ion-tab-button tab="review" @click="title = 'My Reviews'" :href="'/dashboard/reviews'">
                         <ion-icon :icon="starHalfOutline"></ion-icon>
                         <ion-label>Reviews</ion-label>
                     </ion-tab-button>

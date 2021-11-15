@@ -96,63 +96,6 @@
         </ion-row>
       </ion-grid>
     </div>
-
-    <!-- <div class="border-2 product-lists">
-      <ion-list>
-        <ion-item v-for="(item_to_order,i) in orders_products" :key="i">
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <h1>Name : {{item_to_order.product.name}}</h1>
-                <span>Desc. : {{item_to_order.product.description}}</span>
-                <h1>{{item_to_order.product.is_refill ? 'For refill' : 'Container is for sale'}}</h1>
-                <span>Quantity : {{item_to_order.quantity}}</span>
-              </ion-col>
-              <ion-col>
-                <h1>Product price : </h1>
-                <h1 class="pl-2 font-semibold">₱ {{item_to_order.product.price}}</h1>
-                <h1>Total Price :</h1>
-                <h1 class="pl-2 font-semibold"> ₱ {{item_to_order.total_price}}</h1>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
-    </div>
-    <h1 class="text-2xl text-center text-white rounded-2xl " :class="`bg-${getStatus(order.status)}-600`">STATUS {{order.status}}</h1>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <h1 class="mt-3 text-2xl font-semibold">Total : </h1>
-                <h1 class="pl-2 text-2xl font-semibold"> ₱ {{order.total}} </h1>
-                <h1  class="text-2xl">Time to deliver : </h1>
-                <h1 class="pl-2 text-xl">{{ order.date_to_deliver ? order.date_to_deliver : 'Not defined'}}</h1>
-                <h1  class="text-2xl">Date to Deliver: </h1>
-                <h1 class="pl-2 text-xl">{{ order.time_to_deliver ? order.time_to_deliver : 'Not defined'}}</h1>
-
-            </ion-col>
-            <ion-col>
-                <h1 class="mt-3 text-xl font-semibold">Delivery man : </h1>
-                <div  v-if="order.delivery_man_id">
-                    <ion-avatar class="w-20 h-20">
-                        <ion-img :src="'http://3.144.168.4/storage/' + order.delivery_man.image"></ion-img>
-                    </ion-avatar>
-
-                    <div class="mt-3 text-xl font-semibold">
-                        <h1>{{order.delivery_man.name}}</h1>
-                        <h1>{{order.delivery_man.phone_number}}</h1>
-                    </div>
-                </div>
-                <div v-else>Not defined</div>
-            </ion-col>
-        </ion-row>
-
-    </ion-grid> -->
-    <!-- <div class="mt-2">
-        <h1 class="flex justify-center text-2xl font-bold ">Selected order : {{order.length}}</h1>
-        <h1 class="flex justify-center text-2xl font-bold ">Total : ₱ {{total_price_products.toFixed(2)}}</h1>
-        <ion-button @click="placeOrder" class="mt-5 text-2xl " expand="block" color="danger">Place order</ion-button>
-    </div> -->
     
   </ion-content>
 </template>
