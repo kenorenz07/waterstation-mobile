@@ -146,26 +146,4 @@ export default {
   max-height: 65%;
   overflow-y: scroll;
 }
-/* .product-add {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 5px 0px;
-    margin: 25px;
-    background: linear-gradient(
-337deg, #fd1d1d, #fcb045);
-    border-radius: 5px;
-}
-.product-add ion-label,
-.product-add ion-button{
-  color: #fff;
-  font-size: 28px;
-}
-.addToCart {
-  position: absolute;
-  width: 90%;
-  left: 50%;
-  bottom: 35px;
-  transform: translate(-50%, 0);
-} */
 </style>
