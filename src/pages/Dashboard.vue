@@ -6,7 +6,7 @@
                  <!-- <ion-button @click="logoutCustomer" color="light" slot="start" fill="outline">
                     <ion-icon  slot="icon-only" :icon="logOutOutline"></ion-icon>
                 </ion-button> -->
-                <ion-button  slot="start">
+                <ion-button  slot="start" @click="notification">
                     <ion-icon  slot="icon-only" :icon="notificationsOutline"></ion-icon>
                 </ion-button>
                 <ion-button @click="openMenu" slot="end">
@@ -55,7 +55,7 @@ import {
     IonTabs,
     IonToolbar,
     IonTitle,
-    // IonAvatar,
+    IonAvatar,
     IonIcon,
     IonTabBar,
     IonTabButton,
@@ -63,11 +63,12 @@ import {
     IonContent,
     IonRouterOutlet,
     IonButton,
+    IonImg,
     menuController,
 } from '@ionic/vue'
 
 import {  waterOutline, cart,logOutOutline,reorderFourOutline,starHalfOutline, menuOutline,notificationsOutline} from 'ionicons/icons';
-
+// import Menu from '../pages/Announcements.vue';
 export default {
 
     components: {
@@ -76,14 +77,15 @@ export default {
         IonTabs,
         IonToolbar,
         IonTitle,
-        // IonAvatar,
+        IonAvatar,
         IonIcon,
         IonTabBar,
         IonTabButton,
         IonLabel, 
         IonContent,
         IonRouterOutlet,
-        IonButton
+        IonButton,
+        IonImg,
 
     },
     data: () => ({
@@ -116,6 +118,9 @@ export default {
         },
         openMenu(){
             menuController.open('app-menu');
+        },
+        notification(){
+            this.$router.push('/announcements');
         }
 
     }
