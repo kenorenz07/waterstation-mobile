@@ -3,8 +3,11 @@
        <ion-header>
             <ion-toolbar>
                 <ion-title>{{title}}</ion-title>
-                 <ion-button @click="logoutCustomer" color="light" slot="end" fill="outline">
-                    <ion-icon  slot="icon-only" :icon="logOutOutline"></ion-icon>
+                <ion-button @click="openMenu" slot="end">
+                    <!-- <ion-icon  slot="icon-only" :icon="menuOutline"></ion-icon> -->
+                    <ion-avatar>
+                        <ion-img :src="'http://3.144.168.4/storage/' + $store.getters.user.image"></ion-img>
+                    </ion-avatar>
                 </ion-button>
                 <!-- <ion-avatar slot="end" >
                     <img src="https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-1/p100x100/241439838_4465586350227792_3670855029139333701_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=7206a8&_nc_ohc=lqD4hS-c1O4AX_Y2yHi&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent-xsp1-3.xx&oh=bf8f060cb6ededc794279164509bf4cc&oe=61804851">
@@ -45,7 +48,10 @@ import {
     IonLabel, 
     IonContent,
     IonRouterOutlet,
-    IonButton
+    IonButton,
+    IonImg,
+    IonAvatar,
+    menuController
 } from '@ionic/vue'
 
 
@@ -67,7 +73,8 @@ export default {
         IonContent,
         IonRouterOutlet,
         IonButton,
-
+        IonImg,
+        IonAvatar,
     },
     data: () => ({
      reorderFourOutline,cashOutline,logOutOutline,
@@ -76,13 +83,16 @@ export default {
     computed : {
     },
     methods : {
-        logoutCustomer(){
+        logout(){
             this.$axios.post('delivery_man/v1/logout').then(({data}) => {
                 if(data){
                     localStorage.removeItem("token")
                     this.$router.push('/login')
                 }
             })
+        },
+        openMenu(){
+            menuController.open('delivery-menu');
         },
         beforeTabChange(){
 

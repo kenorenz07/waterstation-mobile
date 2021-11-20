@@ -93,6 +93,33 @@
         </ion-row>
         <ion-row>
             <ion-col>
+              <p><strong>Customer Address:</strong></p>
+              <p>
+                <span><strong>Purok : </strong></span><br>
+                <span>{{ order.user.purok ? order.user.purok : 'Not defined'}}</span>
+              </p>
+              <p>
+                <span><strong>Barangay : </strong></span><br>
+                <span>{{ order.user.brgy ? order.user.brgy : 'Not defined'}}</span>
+              </p>
+              <p>
+                <span><strong>City : </strong></span><br>
+                <span>{{ order.user.city ? order.user.city : 'Not defined'}}</span>
+              </p>
+          </ion-col>
+          <ion-col>
+              <p style="margin-top:55px">
+                <span><strong>Landmark : </strong></span><br>
+                <span>{{ order.user.landmark ? order.user.landmark : 'Not defined'}}</span>
+              </p>
+              <p >
+                <span><strong>Additional address : </strong></span><br>
+                <span>{{ order.user.additional_address ? order.user.additional_address : 'Not defined'}}</span>
+              </p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <ion-item>
                     <ion-label position="floating">Set Time</ion-label>
                     <ion-datetime display-format="h:mm a" v-model="time_to_deliver"></ion-datetime>
