@@ -93,7 +93,6 @@ export default {
   methods:{
     setDeliveryMan(){
       let tempdel = JSON.parse(JSON.stringify(this.$store.getters.user))
-      this.delivery.image = tempdel.image 
       this.delivery.name = tempdel.name 
       this.delivery.username = tempdel.username 
       this.delivery.phone_number = tempdel.phone_number 
@@ -118,6 +117,7 @@ export default {
              this.errorMessage()
           }
           else{
+            this.$store.dispatch('updateUser')
             menuController.close("delivery");
           }
         })

@@ -148,6 +148,7 @@ export default {
              this.errorMessage()
           }
           else{
+            this.$store.dispatch('updateUser')
             menuController.close("customer");
           }
       })
