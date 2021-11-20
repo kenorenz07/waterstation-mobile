@@ -6,9 +6,9 @@ import Dashboard from "../pages/Dashboard.vue";
 import DeliveryMan from "../pages/DeliveryMan.vue";
 // import Cart from "../pages/DashboardTabs/Cart.vue";
 // import Home from "../pages/DashboardTabs/Home.vue";
-// import Products from "../pages/DashboardTabs/Products.vue";
+// import Products from "../pages/DashboardTabs/Products.announcements
 
-
+import Announcements from "../pages/Announcements.vue";
 import CreateAccount from "../pages/CreateAccount.vue";
 import LoginFirst from "../pages/Auth/LoginFirst.vue";
 import LoginAsCustomer from "../pages/Auth/LoginAsCustomer.vue";
@@ -64,6 +64,7 @@ const routes = [{
                 component: () =>
                     import ('../pages/DashboardTabs/Reviews.vue')
             },
+
         ]
     },
     {
@@ -85,6 +86,14 @@ const routes = [{
         path: '/create-account',
         name: 'create_account',
         component: CreateAccount
+    },
+    {
+        path: '/announcements',
+        name: 'announcements',
+        component: Announcements,
+        meta: {
+            requiresAuth: true,
+        },
     },
 
 ]

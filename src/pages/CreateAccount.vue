@@ -30,24 +30,39 @@
                             <ion-label position="floating">Email</ion-label>
                             <ion-input v-model="customer.email" type="email"></ion-input>
                         </ion-item>
-                        <ion-item>
+                        <!-- <ion-item>
                             <ion-label class="required" position="floating">Address</ion-label>
                             <ion-input type="text" required></ion-input>
-                            <!-- <ion-input v-model="customer.email" type="text" required></ion-input> -->
-                        </ion-item>
+                            <ion-input v-model="customer.email" type="text" required></ion-input>
+                        </ion-item> -->
                         <ion-row>
-                            <ion-col style="display: flex;">
-                                <ion-item>
-                                    <ion-label class="required" position="floating">Zip Code</ion-label>
-                                    <ion-input type="number" required></ion-input>
-                                    <!-- <ion-input v-model="customer.email" type="number" required></ion-input> -->
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label position="floating">Phone Number</ion-label>
-                                    <ion-input v-model="customer.phone_number" type="number" required></ion-input>
-                                </ion-item>
-                            </ion-col>
+                            <ion-item style="width: calc(100%/2)">
+                                <ion-label class="required" position="floating">Purok</ion-label>
+                                <ion-input v-model="customer.purok" type="text" required></ion-input>
+                            </ion-item>
+                            <ion-item style="width: calc(100%/2)">
+                                <ion-label class="required" position="floating">Barangay/Bario</ion-label>
+                                <ion-input v-model="customer.brgy" type="text" required></ion-input>
+                            </ion-item>
                         </ion-row>
+                        <ion-row>
+                            <ion-item style="width: calc(100%/2)">
+                                <ion-label class="required" position="floating">City</ion-label>
+                                <ion-input v-model="customer.city" type="text" required></ion-input>
+                            </ion-item>
+                            <ion-item style="width: calc(100%/2)">
+                                <ion-label class="required" position="floating">Landmark</ion-label>
+                                <ion-input v-model="customer.landmark" type="text" required></ion-input>
+                            </ion-item>
+                        </ion-row>
+                            <ion-item>
+                                <ion-label class="required" position="floating">Additional address</ion-label>
+                                <ion-input v-model="customer.additional_address" type="text" required></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Phone Number</ion-label>
+                                <ion-input v-model="customer.phone_number" type="number" required></ion-input>
+                            </ion-item>
                         <ion-item>
                             <ion-label class="required" position="floating">Password</ion-label>
                             <ion-input v-model="customer.password" type="password" required></ion-input>
@@ -110,6 +125,11 @@ export default {
     data: () => ({
         customer : {
             image: '',
+            purok: '',
+            brgy: '',
+            city: '',
+            landmark: '',
+            additional_address: '',
             name: '',
             email: '',
             phone_number: null,
@@ -129,6 +149,8 @@ export default {
             this.customer.image ="data:image/jpeg;base64," + image.base64String;
         },
         async register(){
+            console.log(this.customer);
+
             if(this.customer.confirm_password != this.customer.password){
 
                 const toast = await toastController
