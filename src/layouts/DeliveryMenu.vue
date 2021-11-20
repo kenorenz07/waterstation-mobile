@@ -1,5 +1,5 @@
 <template>
-  <ion-menu side="end" type="overlay" menu-id="delivery-menu" content-id="main-content">
+  <ion-menu side="end" type="overlay" @ionDidOpen="setDeliveryMan" menu-id="delivery" content-id="main-content">
     <ion-header>
       <ion-toolbar>
           <ion-button @click="closeMenu" slot="start">
@@ -12,7 +12,7 @@
         <div style="text-align:-webkit-center;">
             <div class="user-profile">
                 <ion-avatar style="height:100px; width:100px;">
-                    <ion-img :src="delivery.image ? 'http://3.144.168.4/storage/' +delivery.image : '../assets/img/no-image.png'"  @click="takePhoto"></ion-img>
+                    <ion-img :src="delivery.image ? 'http://3.144.168.4/storage/' +delivery.image : '/assets/img/no-image.png'"  @click="takePhoto"></ion-img>
                 </ion-avatar>
                 <ion-item>
                     <ion-label class="required" position="floating">Name</ion-label>
@@ -76,19 +76,9 @@ export default {
   }),
   ionViewWillEnter () {
     console.log(this.$store.getters.user);
-
-    let tempdel = JSON.parse(JSON.stringify(this.$store.getters.user))
-    this.delivery.image = tempdel.image 
-    this.delivery.name = tempdel.name 
-    this.delivery.username = tempdel.username 
-    this.delivery.phone_number = tempdel.phone_number 
   },
   mounted() {
-    let tempdel = JSON.parse(JSON.stringify(this.$store.getters.user))
-    this.delivery.image = tempdel.image 
-    this.delivery.name = tempdel.name 
-    this.delivery.username = tempdel.username 
-    this.delivery.phone_number = tempdel.phone_number 
+    
   },
   watch: {
     delivery : {
@@ -99,6 +89,13 @@ export default {
     }
   },
   methods:{
+    setDeliveryMan(){
+      let tempdel = JSON.parse(JSON.stringify(this.$store.getters.user))
+      this.delivery.image = tempdel.image 
+      this.delivery.name = tempdel.name 
+      this.delivery.username = tempdel.username 
+      this.delivery.phone_number = tempdel.phone_number 
+    },
     async takePhoto(){
         const image = await Camera.getPhoto({
             quality: 90,
@@ -110,7 +107,7 @@ export default {
         this.delivery.image ="data:image/jpeg;base64," + image.base64String;
     },
     closeMenu(){
-      menuController.close("delivery-menu");
+      menuController.close("delivery");
     //   this.$router.push(url);
     },
     update(){
@@ -119,7 +116,7 @@ export default {
              this.errorMessage()
           }
           else{
-            menuController.close("delivery-menu");
+            menuController.close("delivery");
           }
         })
     },
@@ -137,7 +134,7 @@ export default {
             if(data){
                 localStorage.removeItem("token")
                 this.$router.push('/login')
-                menuController.close("delivery-menu");
+                menuController.close("delivery");
 
             }
         })

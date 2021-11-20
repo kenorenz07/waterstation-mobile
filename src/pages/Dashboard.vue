@@ -6,13 +6,13 @@
                  <!-- <ion-button @click="logoutCustomer" color="light" slot="start" fill="outline">
                     <ion-icon  slot="icon-only" :icon="logOutOutline"></ion-icon>
                 </ion-button> -->
-                <ion-button  slot="start" @click="notification">
+                <ion-button  slot="end" @click="notification">
                     <ion-icon  slot="icon-only" :icon="notificationsOutline"></ion-icon>
                 </ion-button>
-                <ion-button @click="openMenu" slot="end">
+                <ion-button @click="openMenu" slot="start">
                     <!-- <ion-icon  slot="icon-only" :icon="menuOutline"></ion-icon> -->
                     <ion-avatar>
-                        <ion-img :src="'http://3.144.168.4/storage/' + $store.getters.user.image"></ion-img>
+                        <ion-img :src="$store.getters.user.image ? 'http://3.144.168.4/storage/' + $store.getters.user.image: '/assets/img/no-image.png'"></ion-img>
                     </ion-avatar>
                 </ion-button>
                 <!-- <ion-avatar slot="end" >
@@ -117,7 +117,7 @@ export default {
             
         },
         openMenu(){
-            menuController.open('app-menu');
+            menuController.open('customer');
         },
         notification(){
             this.$router.push('/announcements');

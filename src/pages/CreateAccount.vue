@@ -15,7 +15,7 @@
                     <ion-col style="text-align: center; margin-top: 10px">
                         <!-- <ion-thumbnail> -->
                             <span> Click image to change</span>
-                            <ion-img :src="customer.image ? customer.image : '../assets/img/no-image.png'" @click="takePhoto" class="loii-customer-pic"></ion-img>
+                            <ion-img :src="customer.image ? customer.image : '/assets/img/no-image.png'" @click="takePhoto" class="loii-customer-pic"></ion-img>
                                 <!-- <ion-button @click="takePhoto">take Pic</ion-button> -->
                         <!-- </ion-thumbnail> -->
                     </ion-col>
@@ -27,7 +27,7 @@
                             <ion-input v-model="customer.name" type="text" required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating">Email</ion-label>
+                            <ion-label class="required" position="floating">Email</ion-label>
                             <ion-input v-model="customer.email" type="email"></ion-input>
                         </ion-item>
                         <!-- <ion-item>
@@ -60,7 +60,7 @@
                                 <ion-input v-model="customer.additional_address" type="text" required></ion-input>
                             </ion-item>
                             <ion-item>
-                                <ion-label position="floating">Phone Number</ion-label>
+                                <ion-label class="required" position="floating">Phone Number</ion-label>
                                 <ion-input v-model="customer.phone_number" type="number" required></ion-input>
                             </ion-item>
                         <ion-item>
@@ -103,6 +103,7 @@ import {
     IonToolbar,
     IonHeader,
     toastController,
+    IonImg
 } from '@ionic/vue'
 
 export default {
@@ -121,6 +122,7 @@ export default {
         IonTitle,
         IonToolbar,
         IonHeader,
+        IonImg
     },
     data: () => ({
         customer : {

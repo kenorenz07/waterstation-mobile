@@ -6,7 +6,7 @@
                 <ion-button @click="openMenu" slot="end">
                     <!-- <ion-icon  slot="icon-only" :icon="menuOutline"></ion-icon> -->
                     <ion-avatar>
-                        <ion-img :src="'http://3.144.168.4/storage/' + $store.getters.user.image"></ion-img>
+                        <ion-img :src="$store.getters.user.image ? 'http://3.144.168.4/storage/' + $store.getters.user.image:'/assets/img/no-image.png'"></ion-img>
                     </ion-avatar>
                 </ion-button>
                 <!-- <ion-avatar slot="end" >
@@ -92,7 +92,7 @@ export default {
             })
         },
         openMenu(){
-            menuController.open('delivery-menu');
+            menuController.open('delivery');
         },
         beforeTabChange(){
 

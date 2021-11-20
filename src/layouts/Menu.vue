@@ -1,5 +1,5 @@
 <template>
-  <ion-menu side="end" type="overlay" menu-id="app-menu" content-id="main-content">
+  <ion-menu side="start" type="overlay" @ionDidOpen="setCustomer" menu-id="customer" content-id="main-content">
     <ion-header>
       <ion-toolbar>
           <ion-button @click="closeMenu" slot="start">
@@ -12,7 +12,7 @@
         <div style="text-align:-webkit-center; padding: 0 15px">
             <div class="user-profile">
                 <ion-avatar style="height:100px; width:100px;">
-                    <ion-img :src="updateCustomer.image ? updateCustomer.image : 'http://3.144.168.4/storage/' + $store.getters.user.image" @click="updatePhoto"></ion-img>
+                    <ion-img :src="updateCustomer.image ? 'http://3.144.168.4/storage/' + updateCustomer.image :'/assets/img/no-image.png'" @click="updatePhoto"></ion-img>
                 </ion-avatar>
                 <div>
                   <ion-item>
@@ -27,6 +27,14 @@
                   <ion-item>
                     <ion-label position="stacked">Phone Number</ion-label>
                     <ion-input @ionInput="updateCustomer.phone_number = $event.target.value;" :value="$store.getters.user.phone_number"></ion-input>
+                  </ion-item>
+                   <ion-item>
+                    <ion-label class="required" position="floating">Input new Password</ion-label>
+                    <ion-input :value="updateCustomer.password" @IonInput="updateCustomer.password = $event.target.value" type="password" required></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label class="required" position="floating">Confirm new Password</ion-label>
+                      <ion-input :value="updateCustomer.confirm_password" @IonInput="updateCustomer.confirm_password = $event.target.value" type="password" required></ion-input>
                   </ion-item>
                 </div>
                 <div>
@@ -57,7 +65,8 @@
             </div>
         </div>
         <div style="position: absolute; width: 100%;">
-            <ion-button @click="updateDetails" color="danger" expand="full" style="margin: 0;">Update Account</ion-button>
+            <ion-button @click="updateDetails" color="warning" expand="full" style="margin: 0;"> <ion-icon slot="start" :icon="create"></ion-icon>
+                Update</ion-button>
             <ion-button @click="logoutCustomer" expand="full" style="margin: 0;">
                 <ion-icon slot="start" :icon="logOutOutline"></ion-icon>
                 Logout
@@ -68,10 +77,10 @@
 </template>
 <script>
 import {
-  IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,/* IonItem,IonList,IonLabel, */menuController
+  IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,toastController,/* IonItem,IonList,IonLabel, */menuController
 } from "@ionic/vue";
 import { Camera, CameraResultType,CameraSource} from '@capacitor/camera';
-import { closeOutline,logOutOutline,createOutline } from 'ionicons/icons';
+import { closeOutline,logOutOutline,createOutline,create } from 'ionicons/icons';
 
 export default {
   components: {
@@ -81,6 +90,7 @@ export default {
       closeOutline,
       logOutOutline,
       createOutline,
+      create,
       updateCustomer: {
         image: '',
         name: '',
@@ -91,18 +101,33 @@ export default {
         city: '',
         landmark: '',
         additional_address: '',
+        password: '',
+        confirm_password: ''
       }
   }),
   ionViewWillEnter () {
       console.log(this.$store.getters.user);
+      this.setCustomer()
     },
   mounted() {
       console.log(this.$store.getters.user);
+      this.setCustomer()
   },
   methods:{
-    
+      setCustomer(){
+      let tempdel = JSON.parse(JSON.stringify(this.$store.getters.user))
+      this.updateCustomer.image = tempdel.image 
+      this.updateCustomer.name = tempdel.name 
+      this.updateCustomer.email = tempdel.email 
+      this.updateCustomer.phone_number = tempdel.phone_number 
+      this.updateCustomer.purok = tempdel.purok 
+      this.updateCustomer.brgy = tempdel.brgy 
+      this.updateCustomer.city = tempdel.city 
+      this.updateCustomer.landmark = tempdel.landmark 
+      this.updateCustomer.additional_address = tempdel.additional_address 
+    },
     closeMenu(){
-      menuController.close("app-menu");
+      menuController.close("customer");
     //   this.$router.push(url);
     },
     logoutCustomer(){
@@ -110,7 +135,7 @@ export default {
             if(data){
                 localStorage.removeItem("token")
                 this.$router.push('/login')
-                menuController.close("app-menu");
+                menuController.close("customer");
 
             }
         })
@@ -119,13 +144,22 @@ export default {
       console.log(this.updateCustomer);
       this.$axios.post('user/v1/update', this.updateCustomer).then(({data}) => {
           console.log(data);
-      //     // if(data){
-      //     //     // localStorage.removeItem("token")
-      //     //     // this.$router.push('/login')
-      //     //     // menuController.close("app-menu");
-
-      //     // }
+           if(data.error){
+             this.errorMessage()
+          }
+          else{
+            menuController.close("customer");
+          }
       })
+    },
+    async errorMessage(){
+      const toast = await toastController
+        .create({
+            message: 'Password does not match.',
+            duration: 1000,
+            color: 'danger'
+        })
+      return toast.present();
     },
     async updatePhoto(){
         const image = await Camera.getPhoto({

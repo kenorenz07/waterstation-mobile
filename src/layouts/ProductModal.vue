@@ -15,7 +15,7 @@
   </ion-header>
   <ion-content class="ion-padding">
       <div class="product-thumbnail">
-        <ion-img :src="product.image ? 'http://3.144.168.4/storage/' + product.image :'../assets/img/no-image.png'">
+        <ion-img :src="product.image ? 'http://3.144.168.4/storage/' + product.image :'/assets/img/no-image.png'">
         </ion-img>
       </div>
       <div class="product-header">
