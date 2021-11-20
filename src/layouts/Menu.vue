@@ -13,7 +13,7 @@
             <div class="user-profile">
                 <span> Click image to change</span>
                 <ion-avatar style="height:100px; width:100px;">
-                    <ion-img :src="updateCustomer.image ? 'http://3.144.168.4/storage/' + updateCustomer.image : ($store.getters.user.image ? 'http://3.144.168.4/storage/' + $store.getters.user.image :'/assets/img/no-image.png')" @click="updatePhoto"></ion-img>
+                    <ion-img :src="updateCustomer.image ? updateCustomer.image : ($store.getters.user.image ? 'http://3.144.168.4/storage/' + $store.getters.user.image :'/assets/img/no-image.png')" @click="updatePhoto"></ion-img>
                 </ion-avatar>
                 <div>
                   <ion-item>
