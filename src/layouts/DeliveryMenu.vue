@@ -56,6 +56,7 @@ import {
   IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,/* IonItem,IonList,IonLabel, */menuController,toastController
 } from "@ionic/vue";
 import { closeOutline,logOutOutline,create } from 'ionicons/icons';
+import { Camera, CameraResultType,CameraSource} from '@capacitor/camera';
 
 export default {
   components: {
