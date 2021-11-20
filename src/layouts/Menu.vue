@@ -11,8 +11,9 @@
     <ion-content>
         <div style="text-align:-webkit-center; padding: 0 15px">
             <div class="user-profile">
+                <span> Click image to change</span>
                 <ion-avatar style="height:100px; width:100px;">
-                    <ion-img :src="updateCustomer.image ? 'http://3.144.168.4/storage/' + updateCustomer.image :'/assets/img/no-image.png'" @click="updatePhoto"></ion-img>
+                    <ion-img :src="updateCustomer.image ? 'http://3.144.168.4/storage/' + updateCustomer.image : ($store.getters.user.image ? 'http://3.144.168.4/storage/' + $store.getters.user.image :'/assets/img/no-image.png')" @click="updatePhoto"></ion-img>
                 </ion-avatar>
                 <div>
                   <ion-item>
@@ -116,7 +117,6 @@ export default {
   methods:{
       setCustomer(){
       let tempdel = JSON.parse(JSON.stringify(this.$store.getters.user))
-      this.updateCustomer.image = tempdel.image 
       this.updateCustomer.name = tempdel.name 
       this.updateCustomer.email = tempdel.email 
       this.updateCustomer.phone_number = tempdel.phone_number 

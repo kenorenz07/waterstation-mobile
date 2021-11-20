@@ -11,8 +11,9 @@
     <ion-content>
         <div style="text-align:-webkit-center;">
             <div class="user-profile">
+                <span> Click image to change</span>
                 <ion-avatar style="height:100px; width:100px;">
-                    <ion-img :src="delivery.image ? 'http://3.144.168.4/storage/' +delivery.image : '/assets/img/no-image.png'"  @click="takePhoto"></ion-img>
+                    <ion-img :src="delivery.image ? 'http://3.144.168.4/storage/' + delivery.image : ($store.getters.user.image ? 'http://3.144.168.4/storage/' + $store.getters.user.image :'/assets/img/no-image.png')" @click="takePhoto"></ion-img>
                 </ion-avatar>
                 <ion-item>
                     <ion-label class="required" position="floating">Name</ion-label>
