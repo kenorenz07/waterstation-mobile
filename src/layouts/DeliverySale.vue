@@ -139,8 +139,6 @@ import {
   IonItem,
   IonButton,
   IonIcon,
-  IonDatetime,
-  IonLabel,
   modalController
 } from '@ionic/vue';
 import { arrowBackOutline } from 'ionicons/icons';
@@ -167,12 +165,9 @@ export default {
     IonIcon,
     IonImg,
     IonAvatar,
-    IonDatetime,
-    IonLabel,
 
   },
   ionViewWillEnter () {
-    console.log(this.sale)
   },
   data : () => ({
     arrowBackOutline,
@@ -185,9 +180,6 @@ export default {
     }
   },
   watch : {
-      time_to_deliver(val) {
-          console.log(val,'time_to_deliver')
-      }
   },
   methods : {
     closeModal(){
