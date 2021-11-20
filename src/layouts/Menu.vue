@@ -68,14 +68,14 @@
 </template>
 <script>
 import {
-  IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,/* IonItem,IonList,IonLabel, */menuController
+  IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,/* IonItem,IonList,IonLabel, */menuController
 } from "@ionic/vue";
 import { Camera, CameraResultType,CameraSource} from '@capacitor/camera';
 import { closeOutline,logOutOutline,createOutline } from 'ionicons/icons';
 
 export default {
   components: {
-    IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,/* IonItem,IonList,IonLabel, */
+    IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,/* IonItem,IonList,IonLabel, */
   },
   data: () => ({
       closeOutline,

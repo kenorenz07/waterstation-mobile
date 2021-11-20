@@ -1,5 +1,4 @@
 <template>
-<ion-page>
   <ion-menu side="end" type="overlay" menu-id="delivery-menu" content-id="main-content">
     <ion-header>
       <ion-toolbar>
@@ -51,17 +50,16 @@
         </div>
     </ion-content>
   </ion-menu>
-</ion-page>
 </template>
 <script>
 import {
-  IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,/* IonItem,IonList,IonLabel, */menuController,toastController
+  IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,/* IonItem,IonList,IonLabel, */menuController,toastController
 } from "@ionic/vue";
 import { closeOutline,logOutOutline,create } from 'ionicons/icons';
 
 export default {
   components: {
-    IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,/* IonItem,IonList,IonLabel, */
+    IonMenu,IonHeader,IonContent,IonToolbar,IonTitle,IonIcon,IonButton,IonImg,IonAvatar,IonLabel,IonInput,IonItem,/* IonItem,IonList,IonLabel, */
   },
   data: () => ({
       delivery: {
