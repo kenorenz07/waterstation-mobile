@@ -2,7 +2,7 @@
     <ion-content>
         <div>
             <div>
-                <ion-label position="stacked">How can we make if better?</ion-label>
+                <ion-label position="stacked">How can we make it better?</ion-label>
                 <ion-textarea v-model="review"></ion-textarea>
             </div>
         </div>
