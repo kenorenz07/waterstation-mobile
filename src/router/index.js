@@ -137,7 +137,14 @@ router.beforeEach(async(to, from, next) => {
 
     if (!requiresAuth && user) {
         console.log('not require auth but there is user')
-        next(localStorage.getItem("user_type") == "delivery" ? "/delivery" : from)
+        if(localStorage.getItem("user_type")== "delivery"){
+            console.log("delivery")
+            next("/delivery/orders")
+        }
+        else { 
+            console.log("customer")
+            next("/dashboard/products")
+        }
     } else if (requiresAuth && !user) {
         console.log('require auth there is no user')
         next('/login');
