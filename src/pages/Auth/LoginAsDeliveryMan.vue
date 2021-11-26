@@ -80,8 +80,8 @@ export default {
     },
     data: () => ({
         delivery_man: {
-            username: 'delivery1',
-            password: 123123
+            username: '',
+            password: ''
         }
     }),
     methods : {

@@ -76,8 +76,8 @@ export default {
     },
     data : () => ({
         user: {
-            email: 'keno@renz.com',
-            password: '123123123',
+            email: '',
+            password: '',
         }
     }),
     mounted () {
