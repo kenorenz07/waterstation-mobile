@@ -6,7 +6,7 @@
                     <ion-row>
                         <ion-col>
                             <div class="ion-text-center">
-                                <ion-img src="https://cdn-icons-png.flaticon.com/512/599/599508.png"></ion-img>
+                                <ion-img src="/assets/img/icon.png"></ion-img>
                                 <h1 color="dark">Welcome</h1>
                             </div>
                         </ion-col>
