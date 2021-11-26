@@ -6,7 +6,7 @@ import axios from '../axios'
 const store = createStore({
     state: () => ({
         user: {},
-
+        cart_number : 0
     }),
     getters : {
         memories(state) {
@@ -19,10 +19,16 @@ const store = createStore({
         },
         user(state) {
             return state.user;
+        },
+        cart_number(state) {
+            return state.cart_number
         }
     },
     actions : {
-
+        async updateCartNumber({ commit }) {
+            const resp = await axios.get('user/v1/cart/all')
+            commit('SET_CART_NUMBER', resp.data.length)
+        },
         async updateUser({ commit }) {
 
           try {
@@ -45,6 +51,9 @@ const store = createStore({
         SET_USER(state, user) {
             state.user = user
         },
+        SET_CART_NUMBER(state,cart_number){
+            state.cart_number = cart_number
+        }
         
     }
 });

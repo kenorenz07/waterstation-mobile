@@ -37,6 +37,7 @@
                     <ion-tab-button tab="cart" @click="title = 'My Cart'" :href="'/dashboard/cart'">
                         <ion-icon :icon="cart"></ion-icon>
                         <ion-label>Cart</ion-label>
+                        <ion-badge color="primary">{{cart_number}}</ion-badge>
                     </ion-tab-button>
                     <ion-tab-button tab="review" @click="title = 'My Reviews'" :href="'/dashboard/reviews'">
                         <ion-icon :icon="starHalfOutline"></ion-icon>
@@ -65,9 +66,10 @@ import {
     IonButton,
     IonImg,
     menuController,
+    IonBadge
 } from '@ionic/vue'
 
-import {  waterOutline, cart,logOutOutline,reorderFourOutline,starHalfOutline, menuOutline,notificationsOutline} from 'ionicons/icons';
+import {  waterOutline, cart,logOutOutline,reorderFourOutline,starHalfOutline, menuOutline,notificationsOutline,} from 'ionicons/icons';
 // import Menu from '../pages/Announcements.vue';
 export default {
 
@@ -86,7 +88,7 @@ export default {
         IonRouterOutlet,
         IonButton,
         IonImg,
-
+        IonBadge
     },
     data: () => ({
      reorderFourOutline,
@@ -100,8 +102,20 @@ export default {
      title: null,
     }),
     computed : {
+        cart_number () {
+            return this.$store.getters.cart_number
+        }
+    },
+    ionViewWillEnter() {
+        this.$store.dispatch('updateCartNumber')
+    },
+    mounted (){
+        this.$store.dispatch('updateCartNumber')
     },
     methods : {
+        cartInitialize(){
+            
+        },
         // logoutCustomer(){
         //     this.$axios.post('user/v1/logout').then(({data}) => {
         //         if(data){
@@ -114,7 +128,7 @@ export default {
 
         },
         afterTabChange(){
-            
+            this.$store.dispatch('updateCartNumber')
         },
         openMenu(){
             menuController.open('customer');

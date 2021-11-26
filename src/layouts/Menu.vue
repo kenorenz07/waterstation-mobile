@@ -147,18 +147,23 @@ export default {
            if(data.error){
              this.errorMessage()
           }
+          else if(data.error_email) {
+              this.errorMessage("Email is already used")
+          }
           else{
             this.$store.dispatch('updateUser')
             menuController.close("customer");
           }
       })
     },
-    async errorMessage(){
+    async errorMessage(message = 'Password does not match.'){
       const toast = await toastController
         .create({
-            message: 'Password does not match.',
+            message: message,
             duration: 1000,
-            color: 'danger'
+            color: 'danger',
+            position: "top"
+
         })
       return toast.present();
     },

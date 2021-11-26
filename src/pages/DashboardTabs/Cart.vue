@@ -125,6 +125,7 @@ export default {
         removeFromCart(id){
             this.$axios.delete(`user/v1/cart/delete/${id}`).then(({data})=> {
                 data
+                this.$store.dispatch('updateCartNumber')
                 this.initialize()
             })
         },

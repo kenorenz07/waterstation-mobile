@@ -127,7 +127,8 @@ export default {
         .create({
             message: 'Password does not match.',
             duration: 1000,
-            color: 'danger'
+            color: 'danger',
+            position: "top"
         })
       return toast.present();
     },

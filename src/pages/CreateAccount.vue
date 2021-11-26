@@ -150,33 +150,36 @@ export default {
 
             this.customer.image ="data:image/jpeg;base64," + image.base64String;
         },
+        async errorMessage(message = 'Password does not match.'){
+            const toast = await toastController
+                .create({
+                    message: message,
+                    duration: 1000,
+                    color: 'danger',
+                    position: "top"
+
+                })
+            return toast.present();
+        },
         async register(){
             console.log(this.customer);
 
             if(this.customer.confirm_password != this.customer.password){
 
-                const toast = await toastController
-                    .create({
-                        message: 'Password does not match.',
-                        duration: 1000,
-                        color: 'danger'
-                    })
-                return toast.present();
+                this.errorMessage('Password does not match.')
             }
             else if(this.customer.name && this.customer.email && this.customer.phone_number && this.customer.password){
                 this.$axios.post('user/register',this.customer).then(({data}) => {
                     data
+
+                    if(data.error_email) {
+                        this.errorMessage('Email is already used')
+                    }
                     this.$router.push('/login')
                 })
             }
             else{
-                const toast = await toastController
-                    .create({
-                        message: 'All fields are required.',
-                        duration: 1000,
-                        color: 'danger'
-                    })
-                return toast.present();
+                this.errorMessage('All fields are required.')
             }
         },
      
